@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>Gridea</title>
-    <updated>2019-07-13T06:33:01.898Z</updated>
+    <updated>2019-07-13T06:34:55.793Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -16,7 +16,7 @@
         <link href="https://jackwuhao.github.io/post/xiao-cao">
         </link>
         <updated>2019-07-13T04:43:09.000Z</updated>
-        <content type="html"><![CDATA[<p>我去我去</p>
+        <content type="html"><![CDATA[<p>这是使用GitHubPage+gridea创建的网站，很方便用来使用</p>
 ]]></content>
     </entry>
     <entry>
