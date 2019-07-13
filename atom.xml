@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
-    <title>Gridea</title>
-    <updated>2019-07-13T06:55:16.175Z</updated>
+    <title>吴浩的个人博客</title>
+    <updated>2019-07-13T06:56:45.185Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>每一天都是学习的一天</subtitle>
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, Gridea</rights>
+    <rights>All rights reserved 2019, 吴浩的个人博客</rights>
     <entry>
         <title type="html"><![CDATA[小草]]></title>
         <id>https://jackwuhao.github.io/post/xiao-cao</id>
