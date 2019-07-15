@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-15T01:41:52.701Z</updated>
+    <updated>2019-07-15T02:03:39.548Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,26 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Pycharm 最新破解方案]]></title>
+        <id>https://jackwuhao.github.io/post/pycharm-zui-xin-po-jie-fang-an</id>
+        <link href="https://jackwuhao.github.io/post/pycharm-zui-xin-po-jie-fang-an">
+        </link>
+        <updated>2019-07-15T01:43:37.000Z</updated>
+        <content type="html"><![CDATA[<p>#这里以mac为例进行说明windows一样，操作方法一样</p>
+<ol>
+<li><img src="https://jackwuhao.github.io/post-images/1563155586656.png" alt=""></li>
+<li><img src="https://jackwuhao.github.io/post-images/1563155601503.png" alt=""></li>
+<li><img src="https://jackwuhao.github.io/post-images/1563155662581.png" alt="">
+4.最后保存退出
+6.<img src="https://jackwuhao.github.io/post-images/1563155817633.png" alt="">
+7.到 bin目录添加下载的.jar文件
+8.在pycharm.vmoptions里面最后一行追加 <img src="https://jackwuhao.github.io/post-images/1563156001773.png" alt="">就是.jar文件的文件路径
+9.退出重新进入pycharm,随便打开一个项目，没有新建也行<img src="https://jackwuhao.github.io/post-images/1563156147301.png" alt="">
+10.最后选择<img src="https://jackwuhao.github.io/post-images/1563156193327.png" alt="">点击注册OK</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Python中sort和sorted的区别]]></title>
         <id>https://jackwuhao.github.io/post/python-zhong-sort-he-sorted-de-qu-bie</id>
