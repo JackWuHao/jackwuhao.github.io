@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-15T02:03:39.548Z</updated>
+    <updated>2019-07-15T02:49:30.526Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -28,6 +28,9 @@
 9.退出重新进入pycharm,随便打开一个项目，没有新建也行<img src="https://jackwuhao.github.io/post-images/1563156147301.png" alt="">
 10.最后选择<img src="https://jackwuhao.github.io/post-images/1563156193327.png" alt="">点击注册OK</li>
 </ol>
+<ul>
+<li>资源地址:https://github.com/JackWuHao/file.git</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
