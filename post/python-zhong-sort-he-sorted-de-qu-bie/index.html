@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://jackwuhao.github.io/favicon.ico?v=1563154297364">
+<link rel="shortcut icon" href="https://jackwuhao.github.io/favicon.ico?v=1563154813019">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://jackwuhao.github.io">
-        <img class="avatar" src="https://jackwuhao.github.io/images/avatar.png?v=1563154297364" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://jackwuhao.github.io/images/avatar.png?v=1563154813019" alt="" width="32px" height="32px">
       </a>
       <a href="https://jackwuhao.github.io">
         <h1 class="site-title">吴浩的个人博客</h1>
@@ -75,25 +75,35 @@
           </div>
           <div class="post-content">
             <ul>
-<li>sort :*
-a = [1, 2, -5, 6, 7]
-a.sort(reverse=True)</li>
+<li>
+<p><strong>sort</strong></p>
+</li>
+<li>
+<p>a = [1, 2, -5, 6, 7]</p>
+</li>
+<li>
+<p>a.sort(reverse=True)</p>
+</li>
+<li>
+<p>输出：a : [7, 6, 2, 1, -5]</p>
+</li>
+<li>
+<p><strong>sorted:</strong></p>
+</li>
+<li>
+<p>a = [1, 2, -5, 6, 7]</p>
+</li>
+<li>
+<p>b = sorted(a, reverse=True)</p>
+</li>
+<li>
+<p>输出b:[7, 6, 2, 1, -5]</p>
+</li>
+<li>
+<p>输出a:[1, 2, -5, 6, 7]
+<strong>总结：sort方法和sorted方法大致用法，但是sort方法会导致list本身数据结构的变化，sorted在使用时会把之前的数据copy一份，在copy的那份进行排序</strong></p>
+</li>
 </ul>
-<blockquote>
-<blockquote>
-<p>a : [7, 6, 2, 1, -5]</p>
-</blockquote>
-</blockquote>
-<p><em>sorted:</em>
-a = [1, 2, -5, 6, 7]
-b = sorted(a, reverse=True)</p>
-<blockquote>
-<blockquote>
-<p>b:[7, 6, 2, 1, -5]
-a:[1, 2, -5, 6, 7]
-<em>总结：sort方法和sorted方法大致用法，但是sort方法会导致list本身数据结构的变化，sorted在使用时会把之前的数据copy一份，在copy的那份进行排序</em></p>
-</blockquote>
-</blockquote>
 
           </div>
         </div>
