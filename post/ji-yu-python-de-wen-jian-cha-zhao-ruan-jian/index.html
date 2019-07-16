@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Pycharm 最新破解方案 | 吴浩的个人博客</title>
+<title>基于Python的文件查找软件 | 吴浩的个人博客</title>
 <meta name="description" content="每一天都是学习的一天">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -74,9 +74,9 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Pycharm 最新破解方案</h2>
+          <h2 class="post-title">基于Python的文件查找软件</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-07-15</span>
+            <span><i class="icon-calendar-outline"></i> 2019-07-16</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
@@ -90,20 +90,55 @@
             
           </div>
           <div class="post-content">
-            <p>#这里以mac为例进行说明windows一样，操作方法一样</p>
-<ol>
-<li><img src="https://jackwuhao.github.io/post-images/1563155586656.png" alt=""></li>
-<li><img src="https://jackwuhao.github.io/post-images/1563155601503.png" alt=""></li>
-<li><img src="https://jackwuhao.github.io/post-images/1563155662581.png" alt="">
-4.最后保存退出
-5.<img src="https://jackwuhao.github.io/post-images/1563155817633.png" alt="">
-6.到 bin目录添加下载的.jar文件
-7.在pycharm.vmoptions里面最后一行追加 <img src="https://jackwuhao.github.io/post-images/1563156001773.png" alt="">就是.jar文件的文件路径
-8.退出重新进入pycharm,随便打开一个项目，没有新建也行<img src="https://jackwuhao.github.io/post-images/1563156147301.png" alt="">
-9.最后选择<img src="https://jackwuhao.github.io/post-images/1563156193327.png" alt="">点击注册OK</li>
-</ol>
+            <ul>
+<li><strong>在学习到tkiner时，做的一个练习</strong></li>
+<li><strong>首先这个软件大致可分为3部分</strong></li>
+<li><strong>UI界面的绘制，使用label  ,button ,scrollbar, listBox ，Entry这些控件</strong></li>
+<li><strong>os系统类的使用,获取系统当前目录路径，上级目录路径</strong></li>
+<li><strong>核心:控件之前的联动，获取目录路径出错处理</strong></li>
+<li>最重要的处理逻辑如下：</li>
+</ul>
+<pre><code>def doLS(self, en=None):
+      error=''
+      tdir = self.cmd.get()
+      if not tdir : tdir = os.curdir
+      if not os.path.exists(tdir):
+          error = tdir + ': no such file'
+      elif not os.path.isdir(tdir):
+          error = tdir + ':not a directory'
+      if error:
+          self.cmd.set(error)
+          self.top.update()
+          sleep(2)
+          if not (hasattr(self, 'last') and self.last):
+              self.last = os.curdir
+
+          self.cmd.set(self.last)
+          self.dirs.config(selectbackground='LightSkyBlue')
+          self.top.update()
+          return
+          self.cmd.set(self.last)
+          self.dirs.config(selectbackground='LightSkyBlue')
+          self.top.update()
+          return
+
+      self.cmd.set('FETCHING DIRECTORY CONTENTS...')
+      self.top.update()
+      dirList = os.listdir(tdir)
+      dirList.sort()
+      os.chdir(tdir)
+
+      self.dirl.config(text=os.getcwd())
+      self.dirs.delete(0, END)
+      self.dirs.insert(END, os.curdir)#当前目录macos .
+      self.dirs.insert(END, os.pardir)#上级目录 ..
+      for eachFile in dirList:
+          self.dirs.insert(END, eachFile)
+      self.cmd.set(os.curdir)
+      self.dirs.config(selectbackground='LightSkyBlue')
+</code></pre>
 <ul>
-<li>资源地址:https://github.com/JackWuHao/file.git</li>
+<li><a href="https://github.com/JackWuHao/fileSeachSoftWare.git">资源下载</a></li>
 </ul>
 
           </div>
@@ -111,9 +146,9 @@
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://jackwuhao.github.io/post/python-zhong-sort-he-sorted-de-qu-bie">
+            <a class="purple-link" href="https://jackwuhao.github.io/post/pycharm-zui-xin-po-jie-fang-an">
               <h3 class="post-title">
-                下一篇：Python中sort和sorted的区别
+                下一篇：Pycharm 最新破解方案
               </h3>
             </a>
           </div>
