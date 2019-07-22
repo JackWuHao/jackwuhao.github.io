@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://jackwuhao.github.io/favicon.ico?v=1563763606351">
+<link rel="shortcut icon" href="https://jackwuhao.github.io/favicon.ico?v=1563763865683">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
 
@@ -36,7 +36,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://jackwuhao.github.io">
-        <img class="avatar" src="https://jackwuhao.github.io/images/avatar.png?v=1563763606351" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://jackwuhao.github.io/images/avatar.png?v=1563763865683" alt="" width="32px" height="32px">
       </a>
       <a href="https://jackwuhao.github.io">
         <h1 class="site-title">吴浩的个人博客</h1>
@@ -88,28 +88,30 @@
 <h1 id="导入-from-sqlalchemy-import-foreignkey">导入 from sqlalchemy import ForeignKey</h1>
 </li>
 </ul>
-<p>`
-class Company(Base):</p>
-<pre><code>__tablename__ = 'company'
+<pre><code>class Company(Base):
 
-name = Column(String(20), primary_key=True,autoincrement=True)
-location = Column(String(20))
+   __tablename__ = 'company'
 
-def __repr__(self):
-    return &quot;name:{0} location:{1}&quot;.format(self.name,self.location)
+   name = Column(String(20), primary_key=True,autoincrement=True)
+   location = Column(String(20))
+
+   def __repr__(self):
+       return &quot;name:{0} location:{1}&quot;.format(self.name,self.location)
+
+
+class Phone(Base):
+
+   __tablename__ = 'phone'
+
+   id = Column(Integer,primary_key=True,autoincrement=True)
+   model = Column(String(32))
+   price = Column(String(32))
+   company_name = Column(String(32),ForeignKey(&quot;company.name&quot;))
+ 
+   def __repr__(self):
+        return &quot;{0} model:{1},sales:{2}  price:{3}&quot;.format(self.id,self.model,self.company_name,self.price)
+
 </code></pre>
-<p>class Phone(Base):</p>
-<pre><code>__tablename__ = 'phone'
-
-id = Column(Integer,primary_key=True,autoincrement=True)
-model = Column(String(32))
-price = Column(String(32))
-company_name = Column(String(32),ForeignKey(&quot;company.name&quot;))
-
-def __repr__(self):
-     return &quot;{0} model:{1},sales:{2}  price:{3}&quot;.format(self.id,self.model,self.company_name,self.price)
-</code></pre>
-<p>`</p>
 
           </div>
         </div>
