@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Python中sort和sorted的区别 | 吴浩的个人博客</title>
+<title>Python中sqlalchemy中ForeignKey的使用 | 吴浩的个人博客</title>
 <meta name="description" content="每一天都是学习的一天">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -74,63 +74,51 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Python中sort和sorted的区别</h2>
+          <h2 class="post-title">Python中sqlalchemy中ForeignKey的使用</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-07-15</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://jackwuhao.github.io/tag/6uOgl157Z">
-                    python
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2019-07-22</span>
             
           </div>
           <div class="post-content">
             <ul>
 <li>
-<p><strong>sort</strong></p>
+<p>#例子：</p>
 </li>
 <li>
-<p>a = [1, 2, -5, 6, 7]</p>
-</li>
-<li>
-<p>a.sort(reverse=True)</p>
-</li>
-<li>
-<p>输出：a : [7, 6, 2, 1, -5]</p>
-</li>
-<li>
-<p><strong>sorted:</strong></p>
-</li>
-<li>
-<p>a = [1, 2, -5, 6, 7]</p>
-</li>
-<li>
-<p>b = sorted(a, reverse=True)</p>
-</li>
-<li>
-<p>输出b:[7, 6, 2, 1, -5]</p>
-</li>
-<li>
-<p>输出a:[1, 2, -5, 6, 7]</p>
-</li>
-<li>
-<p><strong>总结：sort方法和sorted方法大致用法，但是sort方法会导致list本身数据结构的变化，sorted在使用时会把之前的数据copy一份，在copy的那份进行排序</strong></p>
+<h1 id="导入-from-sqlalchemy-import-foreignkey">导入 from sqlalchemy import ForeignKey</h1>
 </li>
 </ul>
+<p>`
+class Company(Base):</p>
+<pre><code>__tablename__ = 'company'
+
+name = Column(String(20), primary_key=True,autoincrement=True)
+location = Column(String(20))
+
+def __repr__(self):
+    return &quot;name:{0} location:{1}&quot;.format(self.name,self.location)
+</code></pre>
+<p>class Phone(Base):</p>
+<pre><code>__tablename__ = 'phone'
+
+id = Column(Integer,primary_key=True,autoincrement=True)
+model = Column(String(32))
+price = Column(String(32))
+company_name = Column(String(32),ForeignKey(&quot;company.name&quot;))
+
+def __repr__(self):
+     return &quot;{0} model:{1},sales:{2}  price:{3}&quot;.format(self.id,self.model,self.company_name,self.price)
+</code></pre>
+<p>`</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://jackwuhao.github.io/post/xiao-cao">
+            <a class="purple-link" href="https://jackwuhao.github.io/post/ji-yu-python-de-wen-jian-cha-zhao-ruan-jian">
               <h3 class="post-title">
-                下一篇：小草
+                下一篇：基于Python的文件查找软件
               </h3>
             </a>
           </div>

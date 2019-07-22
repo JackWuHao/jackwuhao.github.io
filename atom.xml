@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-16T02:33:05.771Z</updated>
+    <updated>2019-07-22T02:46:49.025Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Python中sqlalchemy中ForeignKey的使用]]></title>
+        <id>https://jackwuhao.github.io/post/python-zhong-sqlalchemy-zhong-foreignkey-de-shi-yong</id>
+        <link href="https://jackwuhao.github.io/post/python-zhong-sqlalchemy-zhong-foreignkey-de-shi-yong">
+        </link>
+        <updated>2019-07-22T02:38:48.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>#例子：</p>
+</li>
+<li>
+<h1 id="导入-from-sqlalchemy-import-foreignkey">导入 from sqlalchemy import ForeignKey</h1>
+</li>
+</ul>
+<p>`
+class Company(Base):</p>
+<pre><code>__tablename__ = 'company'
+
+name = Column(String(20), primary_key=True,autoincrement=True)
+location = Column(String(20))
+
+def __repr__(self):
+    return &quot;name:{0} location:{1}&quot;.format(self.name,self.location)
+</code></pre>
+<p>class Phone(Base):</p>
+<pre><code>__tablename__ = 'phone'
+
+id = Column(Integer,primary_key=True,autoincrement=True)
+model = Column(String(32))
+price = Column(String(32))
+company_name = Column(String(32),ForeignKey(&quot;company.name&quot;))
+
+def __repr__(self):
+     return &quot;{0} model:{1},sales:{2}  price:{3}&quot;.format(self.id,self.model,self.company_name,self.price)
+</code></pre>
+<p>`</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[基于Python的文件查找软件]]></title>
         <id>https://jackwuhao.github.io/post/ji-yu-python-de-wen-jian-cha-zhao-ruan-jian</id>
