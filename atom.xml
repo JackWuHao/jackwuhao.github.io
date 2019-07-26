@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-22T03:14:04.626Z</updated>
+    <updated>2019-07-26T14:21:17.586Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,100 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Pythpn 中 简单的爬虫]]></title>
+        <id>https://jackwuhao.github.io/post/pythpn-zhong-jian-dan-de-pa-chong</id>
+        <link href="https://jackwuhao.github.io/post/pythpn-zhong-jian-dan-de-pa-chong">
+        </link>
+        <updated>2019-07-26T13:52:19.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>基础环境的搭建</li>
+<li>pip install requests, pip install  pandas    pip install bs4  ，获取请求头http://httpbin.org/get 信息</li>
+</ul>
+<ol>
+<li>获取数据</li>
+</ol>
+<pre><code>URL = &quot;http://book.douban.com/latest&quot;
+
+#请求数据
+def get_data():
+    url = URL
+    headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15&quot;}
+    data = requests.get(url,headers=headers)
+    # print(data.text)
+    return  data
+</code></pre>
+<ol start="2">
+<li>解析数据</li>
+</ol>
+<pre><code>def parse_data(data):
+    soup = BeautifulSoup(data.text,'lxml')
+    # print(soup)
+    books_left = soup.find('ul',{'class':'cover-col-4 clearfix'})
+    books_left = books_left.find_all('li')
+    books_right = soup.find('ul',{'class':'cover-col-4 pl20 clearfix'})
+    books_right = books_right.find_all('li')
+    books = list(books_left) + list(books_right)
+
+    img_urls = []
+    titles = []
+    ratings = []
+    authors = []
+    details = []
+    for book in books:
+        img_url = book.find_all('a')[0].find('img').get('src')
+        img_urls.append(img_url)
+        title = book.find_all('a')[1].get_text()
+        titles.append(title)
+        print(title)
+
+        #评价星级
+        rating = book.find('p',{'class':'rating'}).get_text()
+        rating = rating.replace('\n','').replace(' ','')
+        ratings.append(rating)
+
+
+        #作者
+        author = book.find('p',{'class':'color-gray'}).get_text()
+        author = author.replace('\n','').replace(' ','')
+        authors.append(author)
+
+        #图书简介
+        detail = book.find_all('p')[2].get_text()
+        detail = detail.replace('\n','').replace(' ','')
+        details.append(detail)
+
+
+    print('img_urls:',img_urls)
+
+    print('titles:',titles)
+
+    print('ratings:',ratings)
+
+    print('authors',authors)
+
+    print('details:',details)
+
+    return img_urls,titles,ratings,authors,details
+</code></pre>
+<ol start="3">
+<li>存储数据</li>
+</ol>
+<pre><code>#存储数据
+def save_data(imgurls,titles,ratings,authors,details):
+    result = pd.DataFrame()
+    result['img_urls'] = imgurls
+    result['titles'] = titles
+    result['ratings'] = ratings
+    result['authors'] = authors
+    result['details'] = details
+    result.to_csv('result.csv',index=None)
+</code></pre>
+<ul>
+<li><a href="https://github.com/JackWuHao/crawer.git">资源下载</a></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Python中sqlalchemy中ForeignKey的使用]]></title>
         <id>https://jackwuhao.github.io/post/python-zhong-sqlalchemy-zhong-foreignkey-de-shi-yong</id>
