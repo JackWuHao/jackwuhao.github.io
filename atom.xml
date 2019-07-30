@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-26T14:25:02.246Z</updated>
+    <updated>2019-07-30T03:36:16.117Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,34 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[python 简单的Web服务器]]></title>
+        <id>https://jackwuhao.github.io/post/python-jian-dan-de-web-fu-wu-qi</id>
+        <link href="https://jackwuhao.github.io/post/python-jian-dan-de-web-fu-wu-qi">
+        </link>
+        <updated>2019-07-30T03:24:58.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>关于CGIGHTTPServer:</li>
+<li>基于python3   新建一个webServiceFile</li>
+<li>新建一个html.index ,内容随意</li>
+<li>新建一个pythonService.py</li>
+</ul>
+<pre><code>from http.server import HTTPServer, CGIHTTPRequestHandel 
+prot = 4419  #随意自定义，如果放服务器的话，记着放开端口
+http.serve_forever()
+</code></pre>
+<ul>
+<li>调用时</li>
+</ul>
+<pre><code> python3  pythonService.py  
+</code></pre>
+<ul>
+<li>一个简单的web服务器就搭建起来了</li>
+<li>附截图
+<img src="https://jackwuhao.github.io/post-images/1564457711082.jpeg" alt=""></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Pythpn 中 简单的爬虫]]></title>
         <id>https://jackwuhao.github.io/post/pythpn-zhong-jian-dan-de-pa-chong</id>
