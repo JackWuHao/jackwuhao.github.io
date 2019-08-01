@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-08-01T07:38:45.165Z</updated>
+    <updated>2019-08-01T07:40:14.280Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -44,9 +44,9 @@
 
 &lt;/html&gt;
 </code></pre>
-<p>3.关于搭建和启动web服务器我这里就不BB了，不懂得可以看我的上一篇文章
-4.启动服务器你以为game over了 吗，这时你点击提交提交按钮，会提示你ERROR response ?????,关于这个错误，我百思而无一解，然后熟练的打开了，百度（ps,没钱翻墙了）,一大堆，然而是真的坑没有一点有用的，我照着试一试的心态，去执行了一下.py文件，然后再打开，OK了
-5.下面附上正确的姿势
+<p>3.关于搭建和启动web服务器我这里就不BB了，不懂得可以看我的上一篇文章</p>
+<p>4.启动服务器你以为game over了 吗，这时你点击提交提交按钮，会提示你ERROR response ?????,关于这个错误，我百思而无一解，然后熟练的打开了，百度（ps,没钱翻墙了）,一大堆，然而是真的坑没有一点有用的，我照着试一试的心态，去执行了一下.py文件，然后再打开，OK了</p>
+<p>5.下面附上正确的姿势
 <img src="https://jackwuhao.github.io/post-images/1564644882235.png" alt="">
 6.重新运行web服务器 ，这才gameover!</p>
 ]]></content>
