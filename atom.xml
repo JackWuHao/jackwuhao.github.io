@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-08-01T07:40:14.280Z</updated>
+    <updated>2019-08-01T07:47:58.213Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -49,6 +49,9 @@
 <p>5.下面附上正确的姿势
 <img src="https://jackwuhao.github.io/post-images/1564644882235.png" alt="">
 6.重新运行web服务器 ，这才gameover!</p>
+<ul>
+<li><a href="https://github.com/JackWuHao/cgi.git">资源下载</a></li>
+</ul>
 ]]></content>
     </entry>
     <entry>
