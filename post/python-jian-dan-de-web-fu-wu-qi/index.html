@@ -124,6 +124,7 @@ header {
 </ul>
 <pre><code>from http.server import HTTPServer, CGIHTTPRequestHandel 
 prot = 4419  #随意自定义，如果放服务器的话，记着放开端口
+htpp = HTTPServer(('',port),CGIHTTPRequestHandel )
 http.serve_forever()
 </code></pre>
 <ul>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-07-30T03:36:16.117Z</updated>
+    <updated>2019-08-01T07:13:55.504Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -24,6 +24,7 @@
 </ul>
 <pre><code>from http.server import HTTPServer, CGIHTTPRequestHandel 
 prot = 4419  #随意自定义，如果放服务器的话，记着放开端口
+htpp = HTTPServer(('',port),CGIHTTPRequestHandel )
 http.serve_forever()
 </code></pre>
 <ul>
