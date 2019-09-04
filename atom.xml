@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-08-29T08:25:39.511Z</updated>
+    <updated>2019-09-04T09:26:06.427Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[go的一些学习]]></title>
+        <id>https://jackwuhao.github.io/post/go-de-yi-xie-xue-xi</id>
+        <link href="https://jackwuhao.github.io/post/go-de-yi-xie-xue-xi">
+        </link>
+        <updated>2019-09-04T09:22:38.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="关于go-的接口声明的学习的测试demo">关于go 的接口声明的学习的测试Demo</h1>
+<p><a href="https://github.com/JackWuHao/goDemo.git">资源下载</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[IOS 自动化打包以及上传到fir上]]></title>
         <id>https://jackwuhao.github.io/post/ios-zi-dong-hua-da-bao-yi-ji-shang-chuan-dao-fir-shang</id>
@@ -355,15 +365,6 @@ class Phone(Base):
 <p><strong>总结：sort方法和sorted方法大致用法，但是sort方法会导致list本身数据结构的变化，sorted在使用时会把之前的数据copy一份，在copy的那份进行排序</strong></p>
 </li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[小草]]></title>
-        <id>https://jackwuhao.github.io/post/xiao-cao</id>
-        <link href="https://jackwuhao.github.io/post/xiao-cao">
-        </link>
-        <updated>2019-07-13T04:43:09.000Z</updated>
-        <content type="html"><![CDATA[<p>这是使用GitHubPage+gridea创建的网站，很方便用来使用</p>
 ]]></content>
     </entry>
 </feed>
