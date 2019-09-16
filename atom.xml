@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-09-16T08:00:24.836Z</updated>
+    <updated>2019-09-16T08:05:10.828Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -48,6 +48,7 @@ npm install
 <p>11.发布项目（正式环境）</p>
 <pre><code>npm run build 
 </code></pre>
+<p><a href="https://github.com/JackWuHao/vue-Test.git">资源下载</a></p>
 ]]></content>
     </entry>
     <entry>
