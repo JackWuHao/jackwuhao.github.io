@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-09-16T07:51:17.884Z</updated>
+    <updated>2019-09-16T07:55:12.551Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -16,9 +16,9 @@
         <link href="https://jackwuhao.github.io/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue">
         </link>
         <updated>2019-09-16T07:31:25.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>最近在看vue ,记录一次安装过程避免以后再踩坑</strong>
-1.需要先安装node <a href="https://nodejs.org/zh-cn/download/">node.js 官方下载</a>
-2. 查看node 版本:</p>
+        <content type="html"><![CDATA[<h1 id="最近在看vue-记录一次安装过程避免以后再踩坑"><strong>最近在看vue ,记录一次安装过程避免以后再踩坑</strong></h1>
+<p>1.需要先安装node <a href="https://nodejs.org/zh-cn/download/">node.js 官方下载</a></p>
+<p>2.查看node 版本:</p>
 <pre><code>node -v
 </code></pre>
 <p>3.查看npm版本：</p>
@@ -39,10 +39,8 @@
 <pre><code>cd  XXXX(你要创建的目录)
 vue init webpack  vue-test
 </code></pre>
-<ol start="8">
-<li>然后一路enter键，需要填的填下，不想填能跳过的直接跳过</li>
-<li>安装依赖</li>
-</ol>
+<p>8.然后一路enter键，需要填的填下，不想填能跳过的直接跳过
+9.安装依赖</p>
 <pre><code>cd   vue-test (你创建的项目名称)
 npm install
 </code></pre>
