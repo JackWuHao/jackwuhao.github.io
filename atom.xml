@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-09-11T03:51:26.709Z</updated>
+    <updated>2019-09-16T07:51:17.884Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,50 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[mac 上如何安装及使用vue]]></title>
+        <id>https://jackwuhao.github.io/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue</id>
+        <link href="https://jackwuhao.github.io/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue">
+        </link>
+        <updated>2019-09-16T07:31:25.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>最近在看vue ,记录一次安装过程避免以后再踩坑</strong>
+1.需要先安装node <a href="https://nodejs.org/zh-cn/download/">node.js 官方下载</a>
+2. 查看node 版本:</p>
+<pre><code>node -v
+</code></pre>
+<p>3.查看npm版本：</p>
+<pre><code>npm  -v
+</code></pre>
+<p>4.全局安装依赖包mac下需要加sudo命令:</p>
+<pre><code>sudo npm install -g webpack
+</code></pre>
+<ol start="5">
+<li>全局安装vue-ci 同上：</li>
+</ol>
+<pre><code>sudo npm install webpack -g vue-cli
+</code></pre>
+<p>6.查看vue版本</p>
+<pre><code>vue  -V
+</code></pre>
+<p>7.创建项目（后面的的项目名字vue-test 可替换成你的）</p>
+<pre><code>cd  XXXX(你要创建的目录)
+vue init webpack  vue-test
+</code></pre>
+<ol start="8">
+<li>然后一路enter键，需要填的填下，不想填能跳过的直接跳过</li>
+<li>安装依赖</li>
+</ol>
+<pre><code>cd   vue-test (你创建的项目名称)
+npm install
+</code></pre>
+<p>10.启动项目 (测试环境，本地自带node服务器)</p>
+<pre><code>npm run dev
+</code></pre>
+<p>11.发布项目（正式环境）</p>
+<pre><code>npm run build 
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[转载  iOS性能优化]]></title>
         <id>https://jackwuhao.github.io/post/zhuan-zai-ios-xing-neng-you-hua</id>
@@ -289,64 +333,6 @@ class Phone(Base):
         return &quot;{0} model:{1},sales:{2}  price:{3}&quot;.format(self.id,self.model,self.company_name,self.price)
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[基于Python的文件查找软件]]></title>
-        <id>https://jackwuhao.github.io/post/ji-yu-python-de-wen-jian-cha-zhao-ruan-jian</id>
-        <link href="https://jackwuhao.github.io/post/ji-yu-python-de-wen-jian-cha-zhao-ruan-jian">
-        </link>
-        <updated>2019-07-16T01:50:41.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><strong>在学习到tkiner时，做的一个练习</strong></li>
-<li><strong>首先这个软件大致可分为3部分</strong></li>
-<li><strong>UI界面的绘制，使用label  ,button ,scrollbar, listBox ，Entry这些控件</strong></li>
-<li><strong>os系统类的使用,获取系统当前目录路径，上级目录路径</strong></li>
-<li><strong>核心:控件之前的联动，获取目录路径出错处理</strong></li>
-<li>最重要的处理逻辑如下：</li>
-</ul>
-<pre><code>def doLS(self, en=None):
-      error=''
-      tdir = self.cmd.get()
-      if not tdir : tdir = os.curdir
-      if not os.path.exists(tdir):
-          error = tdir + ': no such file'
-      elif not os.path.isdir(tdir):
-          error = tdir + ':not a directory'
-      if error:
-          self.cmd.set(error)
-          self.top.update()
-          sleep(2)
-          if not (hasattr(self, 'last') and self.last):
-              self.last = os.curdir
-
-          self.cmd.set(self.last)
-          self.dirs.config(selectbackground='LightSkyBlue')
-          self.top.update()
-          return
-          self.cmd.set(self.last)
-          self.dirs.config(selectbackground='LightSkyBlue')
-          self.top.update()
-          return
-
-      self.cmd.set('FETCHING DIRECTORY CONTENTS...')
-      self.top.update()
-      dirList = os.listdir(tdir)
-      dirList.sort()
-      os.chdir(tdir)
-
-      self.dirl.config(text=os.getcwd())
-      self.dirs.delete(0, END)
-      self.dirs.insert(END, os.curdir)#当前目录macos .
-      self.dirs.insert(END, os.pardir)#上级目录 ..
-      for eachFile in dirList:
-          self.dirs.insert(END, eachFile)
-      self.cmd.set(os.curdir)
-      self.dirs.config(selectbackground='LightSkyBlue')
-</code></pre>
-<ul>
-<li><a href="https://github.com/JackWuHao/fileSeachSoftWare.git">资源下载</a></li>
-</ul>
 ]]></content>
     </entry>
 </feed>
