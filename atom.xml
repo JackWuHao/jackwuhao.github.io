@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://xiaocaoaixuexi.club</id>
+    <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-10-26T01:56:41.550Z</updated>
+    <updated>2019-10-26T02:07:15.205Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://xiaocaoaixuexi.club"/>
-    <link rel="self" href="http://xiaocaoaixuexi.club/atom.xml"/>
+    <link rel="alternate" href="https://jackwuhao.github.io"/>
+    <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
     <subtitle>每一天都是学习的一天</subtitle>
-    <logo>http://xiaocaoaixuexi.club/images/avatar.png</logo>
-    <icon>http://xiaocaoaixuexi.club/favicon.ico</icon>
+    <logo>https://jackwuhao.github.io/images/avatar.png</logo>
+    <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
     <entry>
         <title type="html"><![CDATA[Swift  5.1  API测试 ]]></title>
-        <id>http://xiaocaoaixuexi.club/post/swift-51-api-ce-shi</id>
-        <link href="http://xiaocaoaixuexi.club/post/swift-51-api-ce-shi">
+        <id>https://jackwuhao.github.io/post/swift-51-api-ce-shi</id>
+        <link href="https://jackwuhao.github.io/post/swift-51-api-ce-shi">
         </link>
         <updated>2019-10-25T08:43:10.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://github.com/JackWuHao/Swift5.1APITest.git">下载地址</a></p>
@@ -21,8 +21,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[好文章记录一下（面向对象与面向过程的本质区别）]]></title>
-        <id>http://xiaocaoaixuexi.club/post/hao-wen-zhang-ji-lu-yi-xia</id>
-        <link href="http://xiaocaoaixuexi.club/post/hao-wen-zhang-ji-lu-yi-xia">
+        <id>https://jackwuhao.github.io/post/hao-wen-zhang-ji-lu-yi-xia</id>
+        <link href="https://jackwuhao.github.io/post/hao-wen-zhang-ji-lu-yi-xia">
         </link>
         <updated>2019-10-19T09:25:48.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/jerry11112/article/details/79027834">面向对象与面向过程的本质区别</a></p>
@@ -30,8 +30,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[django 如何接收post请求]]></title>
-        <id>http://xiaocaoaixuexi.club/post/django-ru-he-jie-shou-post-qing-qiu</id>
-        <link href="http://xiaocaoaixuexi.club/post/django-ru-he-jie-shou-post-qing-qiu">
+        <id>https://jackwuhao.github.io/post/django-ru-he-jie-shou-post-qing-qiu</id>
+        <link href="https://jackwuhao.github.io/post/django-ru-he-jie-shou-post-qing-qiu">
         </link>
         <updated>2019-10-17T09:40:07.000Z</updated>
         <content type="html"><![CDATA[<pre><code># URL = &quot;http://127.0.0.1:8000/test/?test=3&quot;
@@ -52,8 +52,8 @@ return JsonResponse({&quot;data&quot;:&quot;成功&quot;})
     </entry>
     <entry>
         <title type="html"><![CDATA[django  后台如何设置header 和cookie]]></title>
-        <id>http://xiaocaoaixuexi.club/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie</id>
-        <link href="http://xiaocaoaixuexi.club/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie">
+        <id>https://jackwuhao.github.io/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie</id>
+        <link href="https://jackwuhao.github.io/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie">
         </link>
         <updated>2019-10-17T09:25:07.000Z</updated>
         <content type="html"><![CDATA[<ol>
@@ -96,13 +96,13 @@ def test(request):
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
 </code></pre>
-<p><img src="http://xiaocaoaixuexi.club/post-images/1571304929571.png" alt=""></p>
+<p><img src="https://jackwuhao.github.io/post-images/1571304929571.png" alt=""></p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[django 如何使用token 做身份验证]]></title>
-        <id>http://xiaocaoaixuexi.club/post/django-ru-he-she-zhi-token</id>
-        <link href="http://xiaocaoaixuexi.club/post/django-ru-he-she-zhi-token">
+        <id>https://jackwuhao.github.io/post/django-ru-he-she-zhi-token</id>
+        <link href="https://jackwuhao.github.io/post/django-ru-he-she-zhi-token">
         </link>
         <updated>2019-10-17T09:03:35.000Z</updated>
         <content type="html"><![CDATA[<p>最近在搭建一个后台框架引入了token 来身份验证</p>
@@ -193,8 +193,8 @@ def check_token(token):
     </entry>
     <entry>
         <title type="html"><![CDATA[vue -cli  搭建vue项目实战总结(完工)]]></title>
-        <id>http://xiaocaoaixuexi.club/post/vue-cli-da-jian-vue-xiang-mu-shi-zhan-zong-jie-wan-gong</id>
-        <link href="http://xiaocaoaixuexi.club/post/vue-cli-da-jian-vue-xiang-mu-shi-zhan-zong-jie-wan-gong">
+        <id>https://jackwuhao.github.io/post/vue-cli-da-jian-vue-xiang-mu-shi-zhan-zong-jie-wan-gong</id>
+        <link href="https://jackwuhao.github.io/post/vue-cli-da-jian-vue-xiang-mu-shi-zhan-zong-jie-wan-gong">
         </link>
         <updated>2019-10-04T07:23:03.000Z</updated>
         <content type="html"><![CDATA[<p>搞了几个星期终于终于搞定这个vue-test项目,包括前端,后端,页面一些用法直接copy 的相关页面，懒得自己设计了，通过这个项目整体对VUE   NODE 有了初步的认识，，如果需要跑起来的需要搭建一下mongo数据库，数据也有自己导入就行，遇到困哪了可以看看之前的文章</p>
@@ -217,8 +217,8 @@ def check_token(token):
     </entry>
     <entry>
         <title type="html"><![CDATA[ koa 连接Mongodb]]></title>
-        <id>http://xiaocaoaixuexi.club/post/koa-lian-jie-mongodb</id>
-        <link href="http://xiaocaoaixuexi.club/post/koa-lian-jie-mongodb">
+        <id>https://jackwuhao.github.io/post/koa-lian-jie-mongodb</id>
+        <link href="https://jackwuhao.github.io/post/koa-lian-jie-mongodb">
         </link>
         <updated>2019-09-19T09:27:35.000Z</updated>
         <content type="html"><![CDATA[<ol>
@@ -300,13 +300,13 @@ const { connect , initSchemas } = require('./database/init.js')
 </ol>
 <pre><code>node index.js 
 </code></pre>
-<p><img src="http://xiaocaoaixuexi.club/post-images/1568885930448.png" alt=""></p>
+<p><img src="https://jackwuhao.github.io/post-images/1568885930448.png" alt=""></p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[vue -cli  搭建vue项目实战总结1（首页）]]></title>
-        <id>http://xiaocaoaixuexi.club/post/vue-cli-2-xiang-mu-shi-zhan-zong-jie-shou-ye</id>
-        <link href="http://xiaocaoaixuexi.club/post/vue-cli-2-xiang-mu-shi-zhan-zong-jie-shou-ye">
+        <id>https://jackwuhao.github.io/post/vue-cli-2-xiang-mu-shi-zhan-zong-jie-shou-ye</id>
+        <link href="https://jackwuhao.github.io/post/vue-cli-2-xiang-mu-shi-zhan-zong-jie-shou-ye">
         </link>
         <updated>2019-09-18T09:28:18.000Z</updated>
         <content type="html"><![CDATA[<h1 id="撒花搞了两天首页终于搞定了">撒花，搞了两天首页终于搞定了</h1>
@@ -316,15 +316,15 @@ const { connect , initSchemas } = require('./database/init.js')
 <li>学习制作了组件，整个vue项目的架构引用如何运行，如何加载和引用第三方组件</li>
 <li>请求axios库的简单使用，利用postman 自定义api数据</li>
 <li>解决一些简单npm的报错问题<br>
-<img src="http://xiaocaoaixuexi.club/post-images/1568799992710.png" alt=""><br>
+<img src="https://jackwuhao.github.io/post-images/1568799992710.png" alt=""><br>
 <a href="https://github.com/JackWuHao/vue-Test.git">请转到 v1.0版本</a></li>
 </ol>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[mac 上如何安装及使用vue]]></title>
-        <id>http://xiaocaoaixuexi.club/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue</id>
-        <link href="http://xiaocaoaixuexi.club/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue">
+        <id>https://jackwuhao.github.io/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue</id>
+        <link href="https://jackwuhao.github.io/post/mac-shang-ru-he-an-zhuang-ji-shi-yong-vue">
         </link>
         <updated>2019-09-16T07:31:25.000Z</updated>
         <content type="html"><![CDATA[<h1 id="最近在看vue-记录一次安装过程避免以后再踩坑"><strong>最近在看vue ,记录一次安装过程避免以后再踩坑</strong></h1>
@@ -364,8 +364,8 @@ npm install
     </entry>
     <entry>
         <title type="html"><![CDATA[转载  iOS性能优化]]></title>
-        <id>http://xiaocaoaixuexi.club/post/zhuan-zai-ios-xing-neng-you-hua</id>
-        <link href="http://xiaocaoaixuexi.club/post/zhuan-zai-ios-xing-neng-you-hua">
+        <id>https://jackwuhao.github.io/post/zhuan-zai-ios-xing-neng-you-hua</id>
+        <link href="https://jackwuhao.github.io/post/zhuan-zai-ios-xing-neng-you-hua">
         </link>
         <updated>2019-09-11T03:49:56.000Z</updated>
         <content type="html"><![CDATA[<p><strong>总结的很到位学习了</strong>
