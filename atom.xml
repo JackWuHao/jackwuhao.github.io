@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-10-26T02:07:15.205Z</updated>
+    <updated>2019-10-29T12:33:29.668Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[意外发现了很有趣的一种无限轮播写法(有缺陷)]]></title>
+        <id>https://jackwuhao.github.io/post/yi-wai-fa-xian-liao-hen-you-qu-de-yi-chong-wu-xian-lun-bo-xie-fa-you-que-xian</id>
+        <link href="https://jackwuhao.github.io/post/yi-wai-fa-xian-liao-hen-you-qu-de-yi-chong-wu-xian-lun-bo-xie-fa-you-que-xian">
+        </link>
+        <updated>2019-10-29T12:19:38.000Z</updated>
+        <content type="html"><![CDATA[<p>正常我们做轮播图的做法都是通过scrollView,uipageContol,uiimageView通过301231的原理，在集左，极右的情况下变换偏移量，造成无线轮播的假象（collection,tabview,原理类似，省去了复用的步骤）这些常规操作</p>
+<p><strong>重点来了</strong></p>
+<p>懒得写了直接上链接<a href="https://www.jianshu.com/p/9538fa9f9321">仅仅一个UIImageView就可以实现无限轮播图效果</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Swift  5.1  API测试 ]]></title>
         <id>https://jackwuhao.github.io/post/swift-51-api-ce-shi</id>
@@ -360,16 +371,6 @@ npm install
 <pre><code>npm run build 
 </code></pre>
 <p><a href="https://github.com/JackWuHao/vue-Test.git">资源下载</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[转载  iOS性能优化]]></title>
-        <id>https://jackwuhao.github.io/post/zhuan-zai-ios-xing-neng-you-hua</id>
-        <link href="https://jackwuhao.github.io/post/zhuan-zai-ios-xing-neng-you-hua">
-        </link>
-        <updated>2019-09-11T03:49:56.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>总结的很到位学习了</strong>
-<a href="https://ityongzhen.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html">IOS 性能优化</a></p>
 ]]></content>
     </entry>
 </feed>
