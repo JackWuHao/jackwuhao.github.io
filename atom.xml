@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-05T06:37:19.806Z</updated>
+    <updated>2019-11-05T06:41:41.443Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -74,7 +74,7 @@
     }
 }
 </code></pre>
-<p>IoC有两种方式，一种是DI , 一种是DL;前者是当前软件实体被动接受其依赖的其他组件被 IoC 容器注入，而后者则是当前软件实体主动去某个服务注册地查找其依赖的那些服务，概念之间的关系如图 1 所示可能更贴切些。
+<p>IoC有两种方式，一种是DI , 一种是DL;前者是当前软件实体被动接受其依赖的其他组件被 IoC 容器注入，而后者则是当前软件实体主动去某个服务注册地查找其依赖的那些服务
 Spring IoC 容器的依赖注入工作可以分为两个阶段：</p>
 <h1 id="1-收集和注册">1 收集和注册</h1>
 <p>第一个阶段可以认为是构建和收集 bean 定义的阶段，在这个阶段中，我们可以通过 XML 或者 Java 代码的方式定义一些 bean，然后通过手动组装或者让容器基于某些机制自动扫描的形式，将这些 bean 定义收集到 IoC 容器中。<br>
