@@ -188,19 +188,25 @@ python3 manage.py runserver 0.0.0.0:8000
 6 安装uwsign 
 </code></pre>
 <p>sudo pip3 install uwsgi</p>
-<pre><code>测试uwsgi
+<pre><code>
+测试uwsgi
 </code></pre>
 <p>//随便新建一个.py文件这里新建一个hello.py
 def application(env,start_response):
 start_response('200 OK',[('Content-Type','text/html')])
 return [b&quot;Hello world&quot;]</p>
-<pre><code>在当前目录下（记着开放端口）
+<pre><code>
+在当前目录下（记着开放端口）
 </code></pre>
 <p>uwsgi --http :8000 --wsgi-file hello.py</p>
-<pre><code>找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。
+<pre><code>
+找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。
+
 </code></pre>
 <p>control c  //取消当前进程</p>
-<pre><code>回到项目的根目录 /data/wwwroot/&lt;你的project名字&gt; 新建一个mysite.xml（名字随意其实就是一个配置文件）填写配置，这里来个以.xml配置举例 （其他如.ini 都大同小异）
+<pre><code>
+回到项目的根目录 /data/wwwroot/&lt;你的project名字&gt; 新建一个mysite.xml（名字随意其实就是一个配置文件）填写配置，这里来个以.xml配置举例 （其他如.ini 都大同小异）
+
 </code></pre>
 <uwsgi>    
    <socket>127.0.0.1:8000</socket><!-- 内部端口自定义 即Python manager.py runserver 8000 --> 
@@ -213,35 +219,35 @@ return [b&quot;Hello world&quot;]</p>
 执行uwsgi 命令
 ```
 uwsgi -x mysite.xml
-```
-出错的话请查看uwsgi.log ，自行goole或者百度   
+<pre><code>出错的话请查看uwsgi.log ，自行goole或者百度   
 7. 配置nginx
 		获取nginx.conf 
-```
-		 //获取配置文件的位置
-nginx -t   
-```
+</code></pre>
+<pre><code>	 //获取配置文件的位置
+</code></pre>
+<p>nginx -t</p>
+<pre><code>		 
 一般默认在/etc/nginx/nginx.conf 
 		[ nginx 的详细配置](https://www.jianshu.com/p/849343f679aa)   
 	//这里贴个示例   
-```
-events {
-    worker_connections  1024;
+</code></pre>
+<p>events {
+worker_connections  1024;
 }
 http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    server {
-        listen       80;
-        server_name  www.django.cn;
-        charset utf-8;
-        location / {
-           include uwsgi_params;
-		      # 要和你uwsgi的配置文件mysite.xml配置一致
-           uwsgi_pass 127.0.0.1:8000;
-           uwsgi_param UWSGI_SCRIPT  你的app的名字.wsgi; # 上面都解释的很清楚了
-           uwsgi_param UWSGI_CHDIR  /data/wwwroot/<你的project名字>/; #项目路径
+include       mime.types;
+default_type  application/octet-stream;
+sendfile        on;
+server {
+listen       80;
+server_name  www.django.cn;
+charset utf-8;
+location / {
+include uwsgi_params;
+# 要和你uwsgi的配置文件mysite.xml配置一致
+uwsgi_pass 127.0.0.1:8000;
+uwsgi_param UWSGI_SCRIPT  你的app的名字.wsgi; # 上面都解释的很清楚了
+uwsgi_param UWSGI_CHDIR  /data/wwwroot/&lt;你的project名字&gt;/; #项目路径</p>
 <pre><code>    }
     location /static/ {
     alias /data/wwwroot/mysite/static/; #静态资源路径
@@ -249,7 +255,8 @@ http {
 }
 </code></pre>
 <p>}</p>
-<pre><code class="language-完成后"></code></pre>
+<pre><code class="language-完成后">		 
+</code></pre>
 <p>sudo systemctl status nginx<br>
 //没启动的启动，启动的reload ,上面都解释过了
 sudo systemctl reload nginx</p>
