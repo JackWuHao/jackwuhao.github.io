@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>换了个服务器引发的血案   记 django 运维 | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">换了个服务器引发的血案   记 django 运维</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/huan-liao-ge-fu-wu-qi-yin-fa-de-xie-an-ji-django-yun-wei">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-11-11</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><p>经过一番努力成功:<a href="http://xiaocaoaixuexi.club/login/">个人网站</a></p>
+<p>说说经历的坑吧
+一 : 之前是python2 搭建的  ，由于2020年python2就过期了，为了以后不麻烦重新基于python3搭建，现在服务器大部分的默认的python2.7和3.5
+1.升级Python版本:</p>
+<pre><code>sudo add-apt-repository ppa:jonathonf/python-3.6   //添加3.6版本
+sudo apt-get update  //升级系统
+sudo apt-get install python3.6  //install python3.6版本
+</code></pre>
+<p>2.由于默认调用的python2.7 需要改一下版本优先级</p>
+<pre><code>sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2  //()调整Python3的优先级，使得3.6优先级较高 
+//修改默认python的版本
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 150
+</code></pre>
+<p><img src="https://jackwuhao.github.io/post-images/1573464138701.png" alt="">
+3 .安装nginx</p>
+<pre><code>sudo apt update
+sudo apt install nginx
+</code></pre>
+<p>nginx 常用命令</p>
+<pre><code>//检查Nginx服务的状态和版本
+sudo systemctl status nginx     
+//查看nginx的版本
+sudo nginx -v
+//停止止Nginx服务
+sudo systemctl stop nginx
+//启动
+sudo systemctl start nginx
+//重新启动
+sudo systemctl restart nginx
+//在进行一些配置更改后重新加载Nginx服务
+sudo systemctl reload nginx
+//禁用Nginx服务在启动时启动
+sudo systemctl disable nginx
+//重新启用
+sudo systemctl enable nginx
+//查看nginx的.conf文件的位置
+sudo nginx -t
+</code></pre>
+<p>4 安装虚拟环境（不要也行）</p>
+<pre><code>#放虚拟环境的
+sudo mkdir -p /data/env
+
+#放项目的
+sudo mkdir -p /data/wwwroot
+sudo pip3 install virtualenv
+cd  /data/env
+sudo virtualenv -p /usr/bin/python3 pyweb
+启动虚拟环境
+source /data/env/pyweb/bin/activate
+退出虚拟环境
+deactivate 
+</code></pre>
+<p>5 上传项目 推荐git</p>
+<pre><code>//查看git版本  如果没有的会提示你安装
+git -v  
+</code></pre>
+<p>安装git</p>
+<pre><code>sudo apt-get install git 
+git -v  
+</code></pre>
+<p>对git 不熟悉的话,请到廖雪峰老师的博客学习一遍
+配置项目的环境为生产环境（改配置的时候仔细点）
+cd  /data/wwwroot/你的项目</p>
+<pre><code>//安装配置文件
+sudo pip3 install -r requirements.txt   
+//8000 端口要释放 测试项目是否能够启动
+python3 manage.py runserver 0.0.0.0:8000  
+```    如果没错的话，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到你项目的页面展示，这是是缺少css等文件的，不用急
+6 安装uwsign 
+</code></pre>
+<p>sudo pip3 install uwsgi</p>
+<pre><code>测试uwsgi
+</code></pre>
+<p>//随便新建一个.py文件这里新建一个hello.py
+def application(env,start_response):
+start_response('200 OK',[('Content-Type','text/html')])
+return [b&quot;Hello world&quot;]</p>
+<pre><code>在当前目录下（记着开放端口）
+</code></pre>
+<p>uwsgi --http :8000 --wsgi-file hello.py</p>
+<pre><code>找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。
+</code></pre>
+<p>control c  //取消当前进程</p>
+<pre><code>回到项目的根目录 /data/wwwroot/&lt;你的project名字&gt; 新建一个mysite.xml（名字随意其实就是一个配置文件）填写配置，这里来个以.xml配置举例 （其他如.ini 都大同小异）
+</code></pre>
+<uwsgi>    
+   <socket>127.0.0.1:8000</socket><!-- 内部端口自定义 即Python manager.py runserver 8000 --> 
+   <chdir>/data/wwwroot/<你的project名字>/</chdir><!-- 项目的绝对路径路径 -->            
+   <module>你的app的名字.wsgi</module>  <！--django项目里面你的app下面的wsgi文件，这里填下相对路径，前面的项目路径都是绝对路径了或者 你的app/你的app的名字.wsgi ; 即你的app的名字.wsgi =你的app/你的.wsgi 文件名字，（这里实际路径就是:项目的绝对路径路径/你的app/你的.wsgi 文件名字）-->
+   <processes>4</processes> <!-- 进程数 -->     
+   <daemonize>uwsgi.log</daemonize><!-- 日志文件 -->
+</uwsgi>
+```
+执行uwsgi 命令
+```
+uwsgi -x mysite.xml
+```
+出错的话请查看uwsgi.log ，自行goole或者百度   
+7. 配置nginx
+		获取nginx.conf 
+```
+		 //获取配置文件的位置
+nginx -t   
+```
+一般默认在/etc/nginx/nginx.conf 
+		[ nginx 的详细配置](https://www.jianshu.com/p/849343f679aa)   
+	//这里贴个示例   
+```
+events {
+    worker_connections  1024;
+}
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    server {
+        listen       80;
+        server_name  www.django.cn;
+        charset utf-8;
+        location / {
+           include uwsgi_params;
+		      # 要和你uwsgi的配置文件mysite.xml配置一致
+           uwsgi_pass 127.0.0.1:8000;
+           uwsgi_param UWSGI_SCRIPT  你的app的名字.wsgi; # 上面都解释的很清楚了
+           uwsgi_param UWSGI_CHDIR  /data/wwwroot/<你的project名字>/; #项目路径
+<pre><code>    }
+    location /static/ {
+    alias /data/wwwroot/mysite/static/; #静态资源路径
+    }
+}
+</code></pre>
+<p>}</p>
+<pre><code class="language-完成后"></code></pre>
+<p>sudo systemctl status nginx<br>
+//没启动的启动，启动的reload ,上面都解释过了
+sudo systemctl reload nginx</p>
+<pre><code>随便打开个浏览器测试 搞定！		 
+		 
+		 
+		 
+		 
+		 
+		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/chi-xu-xue-xi-mei-ri-yi-geng-springboot" rel="next"> 持续学习 每日一更 springboot</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>
