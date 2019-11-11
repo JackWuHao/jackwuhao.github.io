@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-11T11:51:18.823Z</updated>
+    <updated>2019-11-11T11:53:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -149,33 +149,13 @@ http {
     }
 }
 		 
-```  完成后   
-		 
 </code></pre>
-<p>sudo systemctl status nginx<br>
+<p>完成后</p>
+<pre><code>sudo systemctl status nginx  
 //没启动的启动，启动的reload ,上面都解释过了
-sudo systemctl reload nginx</p>
-<pre><code>随便打开个浏览器测试 搞定！		 
-		 
-		 
-		 
-		 
-		 
-		 
-
-
-
-
-
-
-
-
-
-
-
-
-
+sudo systemctl reload nginx		 
 </code></pre>
+<p>随便打开个浏览器测试 搞定！</p>
 ]]></content>
     </entry>
     <entry>
