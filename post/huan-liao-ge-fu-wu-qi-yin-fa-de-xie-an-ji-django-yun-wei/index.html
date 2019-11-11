@@ -198,6 +198,15 @@ def application(env,start_response):
 <p>在当前目录下（记着开放端口）</p>
 <pre><code>uwsgi --http :8000 --wsgi-file hello.py
 </code></pre>
+<p>关于端口号被占用：</p>
+<pre><code>//按端口号查询
+lsof -i :8002
+//按程序名称查询
+ps aux | grep uwsgi
+//释放端口号:根据 PID 可以用下面的命令 kill 掉相关程序
+sudo kill -9 2208 2209
+
+</code></pre>
 <p>找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。</p>
 <pre><code>control c  //取消当前进程
 </code></pre>
