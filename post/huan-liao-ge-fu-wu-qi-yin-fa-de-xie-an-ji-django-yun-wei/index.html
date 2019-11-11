@@ -184,78 +184,73 @@ cd  /data/wwwroot/你的项目</p>
 sudo pip3 install -r requirements.txt   
 //8000 端口要释放 测试项目是否能够启动
 python3 manage.py runserver 0.0.0.0:8000  
-```    如果没错的话，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到你项目的页面展示，这是是缺少css等文件的，不用急
-6 安装uwsign 
 </code></pre>
-<p>sudo pip3 install uwsgi</p>
-<pre><code>
-测试uwsgi
+<p>如果没错的话，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到你项目的页面展示，这是是缺少css等文件的，不用急
+6 安装uwsign</p>
+<pre><code>sudo pip3 install uwsgi  
 </code></pre>
-<p>//随便新建一个.py文件这里新建一个hello.py
+<p>测试uwsgi</p>
+<pre><code>//随便新建一个.py文件这里新建一个hello.py
 def application(env,start_response):
-start_response('200 OK',[('Content-Type','text/html')])
-return [b&quot;Hello world&quot;]</p>
-<pre><code>
-在当前目录下（记着开放端口）
+    start_response('200 OK',[('Content-Type','text/html')])
+    return [b&quot;Hello world&quot;]
 </code></pre>
-<p>uwsgi --http :8000 --wsgi-file hello.py</p>
-<pre><code>
-找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。
-
+<p>在当前目录下（记着开放端口）</p>
+<pre><code>uwsgi --http :8000 --wsgi-file hello.py
 </code></pre>
-<p>control c  //取消当前进程</p>
-<pre><code>
-回到项目的根目录 /data/wwwroot/&lt;你的project名字&gt; 新建一个mysite.xml（名字随意其实就是一个配置文件）填写配置，这里来个以.xml配置举例 （其他如.ini 都大同小异）
-
+<p>找个浏览器，访问http://&lt;你的服务器ip&gt;:8000/，不出意外的话你会看到Hello world的，说明uwsgi能正常运行。</p>
+<pre><code>control c  //取消当前进程
 </code></pre>
-<uwsgi>    
-   <socket>127.0.0.1:8000</socket><!-- 内部端口自定义 即Python manager.py runserver 8000 --> 
-   <chdir>/data/wwwroot/<你的project名字>/</chdir><!-- 项目的绝对路径路径 -->            
-   <module>你的app的名字.wsgi</module>  <！--django项目里面你的app下面的wsgi文件，这里填下相对路径，前面的项目路径都是绝对路径了或者 你的app/你的app的名字.wsgi ; 即你的app的名字.wsgi =你的app/你的.wsgi 文件名字，（这里实际路径就是:项目的绝对路径路径/你的app/你的.wsgi 文件名字）-->
-   <processes>4</processes> <!-- 进程数 -->     
-   <daemonize>uwsgi.log</daemonize><!-- 日志文件 -->
-</uwsgi>
-```
-执行uwsgi 命令
-```
-uwsgi -x mysite.xml
-<pre><code>出错的话请查看uwsgi.log ，自行goole或者百度   
+<p>回到项目的根目录 /data/wwwroot/&lt;你的project名字&gt; 新建一个mysite.xml（名字随意其实就是一个配置文件）填写配置，这里来个以.xml配置举例 （其他如.ini 都大同小异）</p>
+<pre><code>&lt;uwsgi&gt;    
+   &lt;socket&gt;127.0.0.1:8000&lt;/socket&gt;&lt;!-- 内部端口自定义 即Python manager.py runserver 8000 --&gt; 
+   &lt;chdir&gt;/data/wwwroot/&lt;你的project名字&gt;/&lt;/chdir&gt;&lt;!-- 项目的绝对路径路径 --&gt;            
+   &lt;module&gt;你的app的名字.wsgi&lt;/module&gt;  &lt;！--django项目里面你的app下面的wsgi文件，这里填下相对路径，前面的项目路径都是绝对路径了或者 你的app/你的app的名字.wsgi ; 即你的app的名字.wsgi =你的app/你的.wsgi 文件名字，（这里实际路径就是:项目的绝对路径路径/你的app/你的.wsgi 文件名字）--&gt;
+   &lt;processes&gt;4&lt;/processes&gt; &lt;!-- 进程数 --&gt;     
+   &lt;daemonize&gt;uwsgi.log&lt;/daemonize&gt;&lt;!-- 日志文件 --&gt;
+&lt;/uwsgi&gt;
+</code></pre>
+<p>执行uwsgi 命令</p>
+<pre><code>uwsgi -x mysite.xml
+		 
+</code></pre>
+<p>出错的话请查看uwsgi.log ，自行goole或者百度<br>
 7. 配置nginx
-		获取nginx.conf 
+获取nginx.conf</p>
+<pre><code>		 //获取配置文件的位置
+nginx -t   
+		 
 </code></pre>
-<pre><code>	 //获取配置文件的位置
-</code></pre>
-<p>nginx -t</p>
-<pre><code>		 
-一般默认在/etc/nginx/nginx.conf 
-		[ nginx 的详细配置](https://www.jianshu.com/p/849343f679aa)   
-	//这里贴个示例   
-</code></pre>
-<p>events {
-worker_connections  1024;
+<p>一般默认在/etc/nginx/nginx.conf
+<a href="https://www.jianshu.com/p/849343f679aa"> nginx 的详细配置</a><br>
+//这里贴个示例</p>
+<pre><code>events {
+    worker_connections  1024;
 }
 http {
-include       mime.types;
-default_type  application/octet-stream;
-sendfile        on;
-server {
-listen       80;
-server_name  www.django.cn;
-charset utf-8;
-location / {
-include uwsgi_params;
-# 要和你uwsgi的配置文件mysite.xml配置一致
-uwsgi_pass 127.0.0.1:8000;
-uwsgi_param UWSGI_SCRIPT  你的app的名字.wsgi; # 上面都解释的很清楚了
-uwsgi_param UWSGI_CHDIR  /data/wwwroot/&lt;你的project名字&gt;/; #项目路径</p>
-<pre><code>    }
-    location /static/ {
-    alias /data/wwwroot/mysite/static/; #静态资源路径
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    server {
+        listen       80;
+        server_name  www.django.cn;
+        charset utf-8;
+        location / {
+           include uwsgi_params;
+		      # 要和你uwsgi的配置文件mysite.xml配置一致
+           uwsgi_pass 127.0.0.1:8000;
+           uwsgi_param UWSGI_SCRIPT  你的app的名字.wsgi; # 上面都解释的很清楚了
+           uwsgi_param UWSGI_CHDIR  /data/wwwroot/&lt;你的project名字&gt;/; #项目路径
+           
+        }
+        location /static/ {
+        alias /data/wwwroot/mysite/static/; #静态资源路径
+        }
     }
 }
-</code></pre>
-<p>}</p>
-<pre><code class="language-完成后">		 
+		 
+```  完成后   
+		 
 </code></pre>
 <p>sudo systemctl status nginx<br>
 //没启动的启动，启动的reload ,上面都解释过了
