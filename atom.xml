@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-11T12:44:52.695Z</updated>
+    <updated>2019-11-11T13:35:30.856Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[cocoapods  记一次重装]]></title>
+        <id>https://jackwuhao.github.io/post/cocoapods-ji-yi-ci-chong-zhuang</id>
+        <link href="https://jackwuhao.github.io/post/cocoapods-ji-yi-ci-chong-zhuang">
+        </link>
+        <updated>2019-11-11T13:27:38.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://www.jianshu.com/p/ab6411a05bc2">安装教程</a>
+注意下macos 版本<br>
+OS X 10.11之前系统的安装cocoapods 指令：$ sudo gem install cocoapods</p>
+<p>OS X 10.11以后系统的安装cocoapods 指令：$ sudo gem install -n /usr/local/bin cocoa pods</p>
+<p>cocoapods  现在默认是trun模式不习惯的可以通过新增source 回退到原先的模式</p>
+<pre><code>platform :ios, '9.0'
+# 取消trun 模式
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+target 'TestSwiftUI' do
+   use_frameworks!
+    # 忽略引入库的所有警告
+   inhibit_all_warnings!
+   # 布局相当于masony
+   pod 'SnapKit'
+   #图片的下载和缓存
+   pod 'Kingfisher'
+   #banner滚动图片
+   pod 'FSPagerView'
+   #网络请求库
+   pod 'Moya'
+end
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[换了个服务器引发的血案   记 django 运维]]></title>
         <id>https://jackwuhao.github.io/post/huan-liao-ge-fu-wu-qi-yin-fa-de-xie-an-ji-django-yun-wei</id>
@@ -391,55 +423,6 @@ return JsonResponse({&quot;data&quot;:&quot;成功&quot;})
 
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[django  后台如何设置header 和cookie]]></title>
-        <id>https://jackwuhao.github.io/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie</id>
-        <link href="https://jackwuhao.github.io/post/django-hou-tai-ru-he-she-zhi-heads-he-cookie">
-        </link>
-        <updated>2019-10-17T09:25:07.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>使用JsonResponse直接返回(推荐)</li>
-</ol>
-<pre><code>from django.http import HttpResponse,JsonResponse  
-def test(request):
-   b = {&quot;data&quot;:&quot;成功&quot;} 
-return JsonResponse(b)
-
-</code></pre>
-<ol start="2">
-<li>使用 HttpResponse返回</li>
-</ol>
-<pre><code>from django.http import HttpResponse,JsonResponse  
-def test(request):
-   b = {&quot;data&quot;:&quot;成功&quot;} 
-return JsonResponse(json.dumps(b))
-</code></pre>
-<ol start="3">
-<li>返回时设置cookie 和header</li>
-</ol>
-<pre><code>from django.http import HttpResponse,JsonResponse  
-def test(request):
-    response = HttpResponse()
-    data = {&quot;data&quot;:&quot;成功&quot;}
-    response.content = json.dumps(data)
-    response.status_code = 200
-    response['name'] = 'xuanli' #设置header
-    response.set_cookie(&quot;TOKEN&quot;, &quot;token&quot;) #设置cookie
-    return response
-</code></pre>
-<p>4.测试代码及结果</p>
-<pre><code>  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [WHRequestmanager  requetWithMethondType:WHRequestMenthonTypeGET requestAPICode:@&quot;/test&quot; requestDic:@{} headerDic:@{} sucessBlock:^(id  _Nonnull responseObject) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            NSHTTPCookieStorage  *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-            NSLog(@&quot;%@&quot;,cookies);
-        } failureBlock:^(NSError * _Nonnull error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
-</code></pre>
-<p><img src="https://jackwuhao.github.io/post-images/1571304929571.png" alt=""></p>
 ]]></content>
     </entry>
 </feed>
