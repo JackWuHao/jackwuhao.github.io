@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-11T13:35:30.856Z</updated>
+    <updated>2019-11-16T02:56:17.774Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[修改http请求为https]]></title>
+        <id>https://jackwuhao.github.io/post/xiu-gai-http-qing-qiu-wei-https</id>
+        <link href="https://jackwuhao.github.io/post/xiu-gai-http-qing-qiu-wei-https">
+        </link>
+        <updated>2019-11-16T02:52:23.000Z</updated>
+        <content type="html"><![CDATA[<p>https://certbot.eff.org     选择系统和软件完后直接安装就行了，安装的时候注意下英文提示。看不懂的请翻译</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[cocoapods  记一次重装]]></title>
         <id>https://jackwuhao.github.io/post/cocoapods-ji-yi-ci-chong-zhuang</id>
@@ -401,28 +410,6 @@ public class Main {
         </link>
         <updated>2019-10-19T09:25:48.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/jerry11112/article/details/79027834">面向对象与面向过程的本质区别</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[django 如何接收post请求]]></title>
-        <id>https://jackwuhao.github.io/post/django-ru-he-jie-shou-post-qing-qiu</id>
-        <link href="https://jackwuhao.github.io/post/django-ru-he-jie-shou-post-qing-qiu">
-        </link>
-        <updated>2019-10-17T09:40:07.000Z</updated>
-        <content type="html"><![CDATA[<pre><code># URL = &quot;http://127.0.0.1:8000/test/?test=3&quot;
-from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt
-def test(request):
-     if request.method == 'GET':
-        a = request.GET.get('test')
-    else:
-        a = request.POST.get('test')
-      print(a)  
-
-return JsonResponse({&quot;data&quot;:&quot;成功&quot;}) 
-
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>
