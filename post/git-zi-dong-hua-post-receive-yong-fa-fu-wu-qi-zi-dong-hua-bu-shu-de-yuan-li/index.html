@@ -122,29 +122,28 @@ header {
 需要的工具：一台安装了git的linux服务器，一台安装了git的电脑
 上面的内容请自己goole 或 百度
 1.远程连接自己的linux服务器打开终端
-1. 一般不直接在root用户下添加.（root的权限太高了，为了服务器的安全）
+一般不直接在root用户下添加.（root的权限太高了，为了服务器的安全）
 1.添加git用户:</p>
-<pre><code>  //添加用户git  （输密码的时候记着在其他地方记录下别忘记了）
- adduser git 
+<pre><code>     //添加用户git  （输密码的时候记着在其他地方记录下别忘记了）
+    adduser git 
 
- //我这里把密码设置为git了
- passwd git 
+    //我这里把密码设置为git了
+    passwd git 
 </code></pre>
 <ol start="2">
 <li>把用户添加到用户组</li>
 </ol>
-<pre><code>  //一:切换到root用户下 
- su root  
-   //二：添加sudo文件的写权限 (记得w后面有空格)
-   chmod u+w  /etc/sudoers
-   // 第三步：编辑sudoers文件 
-     vi  /etc/sudoers
- 找到这行 root ALL=(ALL) ALL,在他下面添加xxx ALL=(ALL) ALL (这里的xxx是你的用户名) 
-   治理添加
-   git    ALL=(ALL) ALL 
-</code></pre>
-<pre><code> //四:撤销sudoers文件写权限
- chmod u-w  /etc/sudoers
+<pre><code>	//一:切换到root用户下 
+   su root  
+	 //二：添加sudo文件的写权限 (记得w后面有空格)
+	 chmod u+w  /etc/sudoers
+	 // 第三步：编辑sudoers文件 
+       vi  /etc/sudoers
+   找到这行 root ALL=(ALL) ALL,在他下面添加xxx ALL=(ALL) ALL (这里的xxx是你的用户名) 
+	 治理添加
+	 git    ALL=(ALL) ALL 
+	 //四:撤销sudoers文件写权限
+	 chmod u-w  /etc/sudoers
 </code></pre>
 <p>2 .创建完成后</p>
 <pre><code>//切换为git用户
