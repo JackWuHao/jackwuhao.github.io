@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-19T15:16:24.874Z</updated>
+    <updated>2019-11-19T15:17:09.338Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -122,10 +122,15 @@ git push
         <link href="https://jackwuhao.github.io/post/git-de-zi-dong-hua-post-commit-yong-fa-qin-ce-ke-xing">
         </link>
         <updated>2019-11-19T12:42:53.000Z</updated>
-        <content type="html"><![CDATA[<p>1.自行了解git基础 不懂得可以看下<a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰大神的git教程</a>
-2.  post-commit用法
-1. github上创建一个项目本地clone 下
-2. 随便修改点东西 如修改readme.md (就是测试commit能否成功)</p>
+        <content type="html"><![CDATA[<p>1.自行了解git基础 不懂得可以看下<a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰大神的git教程</a></p>
+<ol start="2">
+<li>post-commit用法
+<ol>
+<li>github上创建一个项目本地clone 下</li>
+<li>随便修改点东西 如修改readme.md (就是测试commit能否成功)</li>
+</ol>
+</li>
+</ol>
 <pre><code>     git add .
      git commit -m&quot;提交代码&quot;
      git push origin master
