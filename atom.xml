@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-19T15:05:48.447Z</updated>
+    <updated>2019-11-19T15:15:09.830Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -127,23 +127,24 @@ git push
 1. github上创建一个项目本地clone 下
 2. 随便修改点东西 如修改readme.md (就是测试commit能否成功)
 <code>git add . git commit -m&quot;提交代码&quot; git push origin master</code></p>
-<pre><code>3.  命令ls -a 可得：
-	 ![](https://jackwuhao.github.io/post-images/1574167906789.png)    
-	 可以看到有一个.git的隐藏目录   
-	 
-  ```
-  cd  .git
-  cd hooks
- ```		       
+<ol start="3">
+<li>命令ls -a 可得：
+<img src="https://jackwuhao.github.io/post-images/1574167906789.png" alt=""><br>
+可以看到有一个.git的隐藏目录</li>
+</ol>
+<pre><code>   		
+     cd  .git
+     cd hooks
+   		
 </code></pre>
 <ol start="4">
 <li>可以看到下图<br>
 <img src="https://jackwuhao.github.io/post-images/1574168210251.png" alt=""></li>
 </ol>
 <p>5.在hooks/目录下</p>
-<pre><code>//	创建文件(命名不能错)
- touch  post-commit 
-   vim post-commit 
+<pre><code> //	创建文件(命名不能错)
+   touch  post-commit 
+	 vim post-commit 
 </code></pre>
 <p>复制如下代码:(我这里用的Python 也可以直接写 入你自己的脚本命名)</p>
 <pre><code>#! /bin/sh
