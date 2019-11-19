@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>git的自动化  post-commit用法（亲测可行） | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">git的自动化  post-commit用法（亲测可行）</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/git-de-zi-dong-hua-post-commit-yong-fa-qin-ce-ke-xing">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-11-19</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><p>1.自行了解git基础 不懂得可以看下<a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰大神的git教程</a>
+2.  post-commit用法
+1. github上创建一个项目本地clone 下
+2. 随便修改点东西 如修改readme.md (就是测试commit能否成功)
+<code>git add . git commit -m&quot;提交代码&quot; git push origin master</code></p>
+<pre><code>3.  命令ls -a 可得：
+	 ![](https://jackwuhao.github.io/post-images/1574167906789.png)    
+	 可以看到有一个.git的隐藏目录   
+	 
+  ```
+  cd  .git
+  cd hooks
+ ```		       
+</code></pre>
+<ol start="4">
+<li>可以看到下图<br>
+<img src="https://jackwuhao.github.io/post-images/1574168210251.png" alt=""></li>
+</ol>
+<p>5.在hooks/目录下</p>
+<pre><code>//	创建文件(命名不能错)
+ touch  post-commit 
+   vim post-commit 
+</code></pre>
+<p>复制如下代码:(我这里用的Python 也可以直接写 入你自己的脚本命名)</p>
+<pre><code>#! /bin/sh
+# 因为你执行git commit的时候和.git在同一目录所以需要添加上路径否者找不到post-commit.py文件 我这里用的是python3（python2.7明年就过期了老铁们赶紧升级吧）
+python3  .git/hooks/post-commit.py
+</code></pre>
+<p>这里贴下常见的发邮件的脚本post-commit.py （最好在pycharm编写然后复制）</p>
+<pre><code># -*- coding: utf-8 -*-
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+from subprocess import check_output
+
+#使用QQ邮箱做测试，填写QQ的smtp服务器名称
+mail_host = &quot;smtp.qq.com&quot;
+#替换成自己使用的QQ邮箱
+mail_user = &quot;xxxxx@qq.com&quot;
+#替换成自己使用的授权码(非自己的QQ密码)授权码详见:http://service.mail.qq.com/cgi-bin/help?subtype=1&amp;&amp;id=28&amp;&amp;no=1001256
+mail_pass = &quot;xxxxx&quot;
+#使用Python中的subprocess的check_output函数来捕获运行了git命令后的标准输出
+#获取执行一条commit 信息并log出来所以参数如下
+log = check_output(['git', 'log', '-1', '-p']).decode()
+
+m = log.split('\n',5)[4]
+#分割字符串得到最后的一个参数 email
+arg = m.split(' ')[-1]
+if arg[:6] == 'email:':
+    receiver = arg[6:]
+    print(receiver)
+    sender = mail_user
+    receivers = [receiver]
+
+    message = MIMEText(log)
+    message['From'] = Header(mail_user, 'utf-8')
+    message['To'] =  Header(str(receivers), 'utf-8')
+
+    subject = 'This is a commit log for you!'
+    message['Subject'] = Header(subject, 'utf-8')
+
+    try:
+        smtpObj = smtplib.SMTP_SSL(mail_host, 465)
+        smtpObj.login(mail_user,mail_pass)
+        smtpObj.sendmail(sender, receivers, message.as_string())
+        smtpObj.quit()
+        print (&quot;Send the diff email to:&quot;, receiver)
+    except smtplib.SMTPException as e:
+        print (e)
+</code></pre>
+<p>这是需要执行下否者会你commit的时候会提示命令无法执行被忽略</p>
+<pre><code>//执行shell脚本(只有post-commit是shell脚本 post-commit.py是python文件 执行shell脚本的命令是运行python脚本)
+chmod  +x  post-commit 
+</code></pre>
+<p>当然你也可以测试下脚本是否有错
+这里你可以修改下
+post-commit.py 的内容为：</p>
+<pre><code># -*- coding: utf-8 -*-
+print(&quot;aaaa&quot;)
+</code></pre>
+<p>运行 ./post-commit  是否会打印 aaaa ,如果打印aaaa表明脚本执行成功,记得改回post-commit.py的代码</p>
+<p>返回到你clone的文件加下，我这里是在testGitHook/下
+<img src="https://jackwuhao.github.io/post-images/1574170064934.png" alt=""></p>
+<p>随便修改下readme.md内容</p>
+<pre><code>   git add .
+  	 //上面的代码是以emial:为切割的起始位置的所以需要在后面加上email:你的邮箱地址
+   git commit -m&quot;提交代码 email:xxxx@qq.com&quot;
+   这是会提示
+  	 //同时也会通过你的QQ邮箱发一封邮件给你填下的邮箱地址
+  	  Send the diff email to:你的邮箱地址
+   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  
+  
+
+
+
+  	 
+</code></pre>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/swiftui" rel="next"> SWIFTUI</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>

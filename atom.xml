@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-16T07:26:39.759Z</updated>
+    <updated>2019-11-19T13:34:42.397Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,140 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[git的自动化  post-commit用法（亲测可行）]]></title>
+        <id>https://jackwuhao.github.io/post/git-de-zi-dong-hua-post-commit-yong-fa-qin-ce-ke-xing</id>
+        <link href="https://jackwuhao.github.io/post/git-de-zi-dong-hua-post-commit-yong-fa-qin-ce-ke-xing">
+        </link>
+        <updated>2019-11-19T12:42:53.000Z</updated>
+        <content type="html"><![CDATA[<p>1.自行了解git基础 不懂得可以看下<a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰大神的git教程</a>
+2.  post-commit用法
+1. github上创建一个项目本地clone 下
+2. 随便修改点东西 如修改readme.md (就是测试commit能否成功)
+<code>git add . git commit -m&quot;提交代码&quot; git push origin master</code></p>
+<pre><code>3.  命令ls -a 可得：
+	 ![](https://jackwuhao.github.io/post-images/1574167906789.png)    
+	 可以看到有一个.git的隐藏目录   
+	 
+  ```
+  cd  .git
+  cd hooks
+ ```		       
+</code></pre>
+<ol start="4">
+<li>可以看到下图<br>
+<img src="https://jackwuhao.github.io/post-images/1574168210251.png" alt=""></li>
+</ol>
+<p>5.在hooks/目录下</p>
+<pre><code>//	创建文件(命名不能错)
+ touch  post-commit 
+   vim post-commit 
+</code></pre>
+<p>复制如下代码:(我这里用的Python 也可以直接写 入你自己的脚本命名)</p>
+<pre><code>#! /bin/sh
+# 因为你执行git commit的时候和.git在同一目录所以需要添加上路径否者找不到post-commit.py文件 我这里用的是python3（python2.7明年就过期了老铁们赶紧升级吧）
+python3  .git/hooks/post-commit.py
+</code></pre>
+<p>这里贴下常见的发邮件的脚本post-commit.py （最好在pycharm编写然后复制）</p>
+<pre><code># -*- coding: utf-8 -*-
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+from subprocess import check_output
+
+#使用QQ邮箱做测试，填写QQ的smtp服务器名称
+mail_host = &quot;smtp.qq.com&quot;
+#替换成自己使用的QQ邮箱
+mail_user = &quot;xxxxx@qq.com&quot;
+#替换成自己使用的授权码(非自己的QQ密码)授权码详见:http://service.mail.qq.com/cgi-bin/help?subtype=1&amp;&amp;id=28&amp;&amp;no=1001256
+mail_pass = &quot;xxxxx&quot;
+#使用Python中的subprocess的check_output函数来捕获运行了git命令后的标准输出
+#获取执行一条commit 信息并log出来所以参数如下
+log = check_output(['git', 'log', '-1', '-p']).decode()
+
+m = log.split('\n',5)[4]
+#分割字符串得到最后的一个参数 email
+arg = m.split(' ')[-1]
+if arg[:6] == 'email:':
+    receiver = arg[6:]
+    print(receiver)
+    sender = mail_user
+    receivers = [receiver]
+
+    message = MIMEText(log)
+    message['From'] = Header(mail_user, 'utf-8')
+    message['To'] =  Header(str(receivers), 'utf-8')
+
+    subject = 'This is a commit log for you!'
+    message['Subject'] = Header(subject, 'utf-8')
+
+    try:
+        smtpObj = smtplib.SMTP_SSL(mail_host, 465)
+        smtpObj.login(mail_user,mail_pass)
+        smtpObj.sendmail(sender, receivers, message.as_string())
+        smtpObj.quit()
+        print (&quot;Send the diff email to:&quot;, receiver)
+    except smtplib.SMTPException as e:
+        print (e)
+</code></pre>
+<p>这是需要执行下否者会你commit的时候会提示命令无法执行被忽略</p>
+<pre><code>//执行shell脚本(只有post-commit是shell脚本 post-commit.py是python文件 执行shell脚本的命令是运行python脚本)
+chmod  +x  post-commit 
+</code></pre>
+<p>当然你也可以测试下脚本是否有错
+这里你可以修改下
+post-commit.py 的内容为：</p>
+<pre><code># -*- coding: utf-8 -*-
+print(&quot;aaaa&quot;)
+</code></pre>
+<p>运行 ./post-commit  是否会打印 aaaa ,如果打印aaaa表明脚本执行成功,记得改回post-commit.py的代码</p>
+<p>返回到你clone的文件加下，我这里是在testGitHook/下
+<img src="https://jackwuhao.github.io/post-images/1574170064934.png" alt=""></p>
+<p>随便修改下readme.md内容</p>
+<pre><code>   git add .
+  	 //上面的代码是以emial:为切割的起始位置的所以需要在后面加上email:你的邮箱地址
+   git commit -m&quot;提交代码 email:xxxx@qq.com&quot;
+   这是会提示
+  	 //同时也会通过你的QQ邮箱发一封邮件给你填下的邮箱地址
+  	  Send the diff email to:你的邮箱地址
+   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  
+  
+
+
+
+  	 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[SWIFTUI]]></title>
+        <id>https://jackwuhao.github.io/post/swiftui</id>
+        <link href="https://jackwuhao.github.io/post/swiftui">
+        </link>
+        <updated>2019-11-19T03:26:59.000Z</updated>
+        <content type="html"><![CDATA[<p>swiftUI ,距离实际运用还差的很多，如果之前用过flutter，会感觉很相似，一个一切皆widget,一个一皆view
+都是通过对不同的组件进行组装进行开发
+<a href="https://developer.apple.com/tutorials/swiftui">swift组件介绍</a>
+<a href="https://github.com/JackWuHao/swiftUI.git">demo</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[修改http请求为https]]></title>
         <id>https://jackwuhao.github.io/post/xiu-gai-http-qing-qiu-wei-https</id>
@@ -392,24 +526,6 @@ public class Main {
         <content type="html"><![CDATA[<p>正常我们做轮播图的做法都是通过scrollView,uipageContol,uiimageView通过301231的原理，在集左，极右的情况下变换偏移量，造成无线轮播的假象（collection,tabview,原理类似，省去了复用的步骤）这些常规操作</p>
 <p><strong>重点来了</strong></p>
 <p>懒得写了直接上链接<a href="https://www.jianshu.com/p/9538fa9f9321">仅仅一个UIImageView就可以实现无限轮播图效果</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Swift  5.1  API测试 ]]></title>
-        <id>https://jackwuhao.github.io/post/swift-51-api-ce-shi</id>
-        <link href="https://jackwuhao.github.io/post/swift-51-api-ce-shi">
-        </link>
-        <updated>2019-10-25T08:43:10.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://github.com/JackWuHao/Swift5.1APITest.git">下载地址</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[好文章记录一下（面向对象与面向过程的本质区别）]]></title>
-        <id>https://jackwuhao.github.io/post/hao-wen-zhang-ji-lu-yi-xia</id>
-        <link href="https://jackwuhao.github.io/post/hao-wen-zhang-ji-lu-yi-xia">
-        </link>
-        <updated>2019-10-19T09:25:48.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/jerry11112/article/details/79027834">面向对象与面向过程的本质区别</a></p>
 ]]></content>
     </entry>
 </feed>
