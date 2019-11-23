@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-23T07:10:43.696Z</updated>
+    <updated>2019-11-23T07:38:05.061Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -128,6 +128,27 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.product
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.develop')
 </code></pre>
 <p>这样就把我们的测试环境和生产环境的配置完全区分开了</p>
+<p><strong>最后上传的github</strong><br>
+1.修改下配置，在settiings包下，新建base_example.py 把里面你的key 和mysql，等其他重要的配置替换 (如何在develop.py 和product.py有重要配置记着同样替换掉)
+2. 创建requirements.txt文件</p>
+<pre><code>#在项目目录下生成项目的依赖文件
+pip freeze &gt; ./requirements.txt
+</code></pre>
+<p>别人使用时</p>
+<pre><code>#安装依赖
+pip install -r requirements.txt
+</code></pre>
+<p>3 创建.gitignore文件</p>
+<pre><code>mkdir  .gitignore
+</code></pre>
+<p>在.gitignore文件里写入下面的忽略内容(如何在develop.py 和product.py有重要配置记着同样忽略掉)：</p>
+<pre><code>.gitignore
+venv
+.idea
+db.sqlite3
+studentManager/__pycache__/
+settings/base.py
+</code></pre>
 ]]></content>
     </entry>
     <entry>
