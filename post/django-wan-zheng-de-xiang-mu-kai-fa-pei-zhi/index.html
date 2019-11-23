@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>django完整的项目开发配置 | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">django完整的项目开发配置</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/django-wan-zheng-de-xiang-mu-kai-fa-pei-zhi">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-11-23</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><h1 id="开始本篇教程之前你需要了解的内容">开始本篇教程之前你需要了解的内容</h1>
+<p>1  <strong>基础知识: python的基础知识,django基础命令,git基础 mysql</strong><br>
+2  <strong>开发工具:pycahrm  ,python3.6 ,django2.2以上 ,mysql（非必须,navicate(非必须)</strong></p>
+<h1 id="创建项目和app">创建项目和APP</h1>
+<p>1 <strong>打开pycharm 创建一个django项目</strong></p>
+<pre><code>//在终端创建一个名为student的app
+ python manager.py  startapp student
+</code></pre>
+<p><strong>此时的项目目录为</strong><br>
+<img src="https://jackwuhao.github.io/post-images/1574480195551.png" alt=""></p>
+<h1 id="修改项目配置">修改项目配置</h1>
+<p><strong>settings.py介绍:这是我们django项目的配置文件，基本上我们项目的所有配置都需要在这个文件下完成</strong>
+1 <strong>修改时区的设置:默认时间设置不是中国时间，这样你在网数据库存时间的时候会发现，数据全是英文时间也对不上</strong></p>
+<pre><code># 把settings上面的默认字段修改为
+LANGUAGE_CODE = 'zh-hans'   #语言中文
+TIME_ZONE = 'Asia/Shanghai'   # 上海时间 （别问我为啥是上海,不是北京问就是没有）
+USE_TZ = False    #把本地时间禁止,不要考虑本地时间的存在
+</code></pre>
+<p>2 <strong>数据库的设置</strong>
+1 如果你的项目是小项目那完全没必要修改了sqlite完全够用了
+2 企业或者有性能要求的：
+<strong>修改数据库的默认配置</strong></p>
+<pre><code>//打开终端下载pymysql (当然他的也行这里以pymysql 举例了)
+pip install pymysql
+</code></pre>
+<p><strong>修改之前有两个坑（在你python manager   和  python  manager   migrate 会出现）</strong>
+第一个问题: raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.<strong>version</strong>) 　　　django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+<strong>结局方案</strong>
+1.python安装目录打开base.py，注释掉以下内容： 　　　　　　　
+if version &lt; (1, 3, 13):
+　raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.<strong>version</strong>)</p>
+<p>2.query = query.decode(errors='replace') 　
+把报错decode修改为encode
+<strong>提前创建好数据库</strong>
+建议安装mysql的时候顺便安装一下navicate ,可视化操作方便多了你要是喜欢敲命令当我没说
+如何安装mysql我这里就不讲了，自行goole或者百度
+<strong>引入pymysql</strong>
+在settings.py中添加以下代码</p>
+<pre><code>#要引入pymysql必须引入加入这两句代码
+import pymysql
+pymysql.install_as_MySQLdb()
+#修改配置文件 
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': '你创建的数据库的名称',  # 数据库名，先前创建的
+        'USER': '你mysql的用户名',  # 用户名，可以自己创建用户
+        'PASSWORD': '你mysql的密码',  # 密码
+        'HOST': 'localhost',  # mysql服务所在的主机ip这里默认为本地127.0.0.1
+        'PORT': '3306',  # mysql服务端口
+				#测试的数据库，如果不写测试用例的话可以去掉
+        'TEST': {
+				#这里的数据库不用提前创建。测试的时候会自动创建和销毁的
+            'NAME':'随便起一个名字'
+        }
+    }
+}
+</code></pre>
+<p><strong>引入APP</strong></p>
+<pre><code>INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+		#这里直接引入你创建的名字，有两种写法都行
+		#直接引入你创建的app的名字
+		# 'student'  
+		#引入你你创建的app目录下的apps.py的自动创建的app类名 （这种写法更灵活，可以给app起别名等）
+    'student.apps.StudentConfig',
+]
+</code></pre>
+<p><strong>资源文件这里简单的配置下以作参考你完全可以自定路径，部署的时候再考虑这个问题更好</strong></p>
+<pre><code>STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+</code></pre>
+<p><strong>如何区分生产环境和测试环境</strong>
+以上这样基本的框架配置完成后,你可以试着运行没有一点问题，实际上我们在开发过程中，经常会碰到这样的问题，开发环境和测试环境有很多配置是不一样，我们当然也可以继续在settings.py自己修改，但是你会想，有没有更好的解决方案能不能搞两套设置文件，一套测试环境使用，一套生产环境使用
+自己观察下manager.py这个文件会发现这句代码</p>
+<pre><code>#导入django的配置文件
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings')
+</code></pre>
+<p>我们把settings.py删除 记着保存一份新建一个python package，命名为settings
+新建3个python文件如下图<br>
+<img src="https://jackwuhao.github.io/post-images/1574491111080.png" alt=""></p>
+<p>把原先settings.py里面的配置全部复制到base.py
+在develop.py  和 product.py 分入加入这句代码</p>
+<pre><code>#引入base.py的所有配置
+from .base import * 
+</code></pre>
+<p>如果你想修改某个配置的直接重写就行了
+如product.py</p>
+<pre><code>#关闭测试环境
+DEBUG = False
+ALLOWED_HOSTS = ['*']
+</code></pre>
+<p><strong>修改manage.py 和wsgi.py的配置设置</strong><br>
+把这句代码</p>
+<pre><code>os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings')
+</code></pre>
+<p>替换为</p>
+<pre><code>#正式环境（生产环境）
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.product') 
+# 测试环境
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.develop')
+</code></pre>
+<p>这样就把我们的测试环境和生产环境的配置完全区分开了</p>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/di-ke-si-la-suan-fa" rel="next"> 狄克斯拉算法</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>
