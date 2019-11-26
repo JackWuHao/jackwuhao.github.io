@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-23T07:41:00.261Z</updated>
+    <updated>2019-11-26T14:01:10.202Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[django 添加日志管理]]></title>
+        <id>https://jackwuhao.github.io/post/django-tian-jia-ri-zhi-guan-li</id>
+        <link href="https://jackwuhao.github.io/post/django-tian-jia-ri-zhi-guan-li">
+        </link>
+        <updated>2019-11-26T13:58:04.000Z</updated>
+        <content type="html"><![CDATA[<p>在admin.py 中添加一下代码</p>
+<pre><code>from django.contrib.admin.models import LogEntry
+
+@admin.register(LogEntry,site=customer_site)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ['object_repr','object_id','action_flag','user','change_message']
+</code></pre>
+<p>重新运行一遍就有了</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[django完整的项目开发配置]]></title>
         <id>https://jackwuhao.github.io/post/django-wan-zheng-de-xiang-mu-kai-fa-pei-zhi</id>
@@ -683,149 +699,6 @@ sudo systemctl reload nginx
         <content type="html"><![CDATA[<p>ps:学习java是真的费劲,估计最少的一个月才能入门，还是我大python 爽呀学习成本基本没有搞起来贼快
 想念django的第一天
 <a href="https://github.com/JackWuHao/SpringBootTest.git">下载地址</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Springboot  maven及spring 介绍]]></title>
-        <id>https://jackwuhao.github.io/post/springboot-maven-ji-spring-jie-shao</id>
-        <link href="https://jackwuhao.github.io/post/springboot-maven-ji-spring-jie-shao">
-        </link>
-        <updated>2019-11-05T03:45:33.000Z</updated>
-        <content type="html"><![CDATA[<p>关于maven 的介绍： apache maven 是一个软件项目管理，基于对象模型（POM）的概念，用来管理项目的依赖，编译，文档等信息</p>
-<p>spring项目的搭建</p>
-<ol>
-<li>新建Maven 项目 ，单击file-&gt;new -&gt;Project -&gt;maven</li>
-<li>输入maven项目坐标</li>
-<li>选择存库路径</li>
-<li>修改pom.xml 的配置文件<br>
-下面给一个配置实例</li>
-</ol>
-<pre><code>  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-
-    &lt;groupId&gt;com.wuhao.cn&lt;/groupId&gt;
-    &lt;artifactId&gt;hight_spring4&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-    &lt;properties&gt;
-        &lt;java.version&gt; 1.7 &lt;/java.version&gt;
-        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-    &lt;/properties&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
-            &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;build&gt;
-        &lt;defaultGoal&gt;compile&lt;/defaultGoal&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-            &lt;groupId&gt; org.apache.maven.plugins &lt;/groupId&gt;
-            &lt;artifactId&gt; maven-compiler-plugin &lt;/artifactId&gt;
-            &lt;version&gt; 2.3.2 &lt;/version&gt;
-            &lt;configuration&gt;
-                &lt;source&gt; $(java.version) &lt;/source&gt;
-                &lt;target&gt; $(java.version) &lt;/target&gt;
-            &lt;/configuration&gt;
-            &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/build&gt;
-
-
-&lt;/project&gt;
-</code></pre>
-<p>IoC: 实际上是指 Spring 框架提供的 IoC 容器实现（IoC Container ) ，使用IOC 容器的一个典型代码片段：</p>
-<pre><code>public class App {
-    public static void main(String[] args) {
-        ApplicationContext context = new FileSystemXmlApplication-Context(&quot;...&quot;);
-        // ...
-        MockService service = context.getBean(MockService.class);
-        service.doSomething();
-    }
-}
-</code></pre>
-<p>IoC有两种方式，一种是DI , 一种是DL;前者是当前软件实体被动接受其依赖的其他组件被 IoC 容器注入，而后者则是当前软件实体主动去某个服务注册地查找其依赖的那些服务<br>
-Spring IoC 容器的依赖注入工作可以分为两个阶段：</p>
-<h1 id="1-收集和注册">1 收集和注册</h1>
-<p>第一个阶段可以认为是构建和收集 bean 定义的阶段，在这个阶段中，我们可以通过 XML 或者 Java 代码的方式定义一些 bean，然后通过手动组装或者让容器基于某些机制自动扫描的形式，将这些 bean 定义收集到 IoC 容器中。<br>
-声明 Bean的注解：</p>
-<ul>
-<li>@Compoent 组件</li>
-<li>@Service  在业务层使用（service）</li>
-<li>@Controller 在展现层（MVC-&gt;SpringMVC）中使用<br>
-注入Bean 的注解</li>
-<li>@Autowired: Spring提供的注解</li>
-<li>@Inject: JSR-330提供的注解</li>
-<li>@Resource: JSR-250提供的注解
-他们可以注解在set方法上或者属性上 ，优点:代码少，层次清晰</li>
-</ul>
-<h2 id="示例">示例：</h2>
-<p>编写功能类的示例：</p>
-<pre><code>package com.wuho.cn;
-import  org.springframework.stereotype.Service;
-@Service  //声明ben
-public class FunctionService {
-
-    public String sayHello(String word) {
-        return &quot;Hello&quot; + &quot;world&quot; + &quot;!&quot;;
-    }
-
-}
-</code></pre>
-<p>使用功能类的示例</p>
-<pre><code>package com.wuho.cn;
-import  org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-@Service
-public class UseFunctionService {
-    @Autowired  //使用bean
-    FunctionService functionService;
-    public String sayHello(String world) {
-        return functionService.sayHello(world);
-    }
-}
-
-</code></pre>
-<h1 id="2-分析和组装">2 分析和组装</h1>
-<p>当第一阶段工作完成后，我们可以先暂且认为 IoC 容器中充斥着一个个独立的 bean，它们之间没有任何关系。
-IoC 容器在第二阶段要干的事情就是分析这些已经在 IoC 容器之中的 bean，然后根据它们之间的依赖关系先后组装它们
-Spring 的 XML 配置文件是一种配置（Configuration），但本质上，这些配置文件更应该是一种代码形式，XML 在这里其实可以看作一种 DSL(domain specific language:即领域专用语言)，它用来表述的是 bean 与 bean 之间的依赖绑定关系，如果没有 IoC 容器就要自己写代码新建（new）对象并配置（set）依赖。</p>
-<p>配置类</p>
-<pre><code>package com.wuho.cn;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration  //配置
-@ComponentScan(&quot;com.wuho.cn&quot;) //自动扫描包名下的所有@Service @Compoent  @Repository  @Controller 的类，并注册为Bean
-
-public class DIConfig {
-}
-
-</code></pre>
-<p>运行</p>
-<pre><code>package com.wuho.cn;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-public class Main {
-
-    public static void main(String[] args) {
-        //声明 使用 AnnotationConfigApplicationContext 作为Spring的容器，接受输入一个配置类作为参数
-        AnnotationConfigApplicationContext content = new AnnotationConfigApplicationContext(DIConfig.class);
-        //获取声明的UseFunctionService 的bean
-        UseFunctionService  useFunctionService =  content.getBean(UseFunctionService.class);
-        System.out.println(useFunctionService.sayHello(&quot;di&quot;));
-        content.close();
-    }
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
