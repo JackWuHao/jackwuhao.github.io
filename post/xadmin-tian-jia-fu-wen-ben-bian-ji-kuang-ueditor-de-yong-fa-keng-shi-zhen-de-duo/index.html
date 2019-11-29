@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xadmin  添加富文本编辑框UEditor的用法（坑是真的多） | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">xadmin  添加富文本编辑框UEditor的用法（坑是真的多）</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/xadmin-tian-jia-fu-wen-ben-bian-ji-kuang-ueditor-de-yong-fa-keng-shi-zhen-de-duo">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-11-29</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><p>python3以上不能直接用pip install  ueditor<br>
+python3 安装版本  <a href="https://github.com/twz915/DjangoUeditor3">ueditor 下载</a></p>
+<h3 id="有两种方式安装">有两种方式安装</h3>
+<p>1 直接解压后把DjangoUeditor这个目录直接拖进项目目录下
+2 cd到你下载的目录</p>
+<pre><code>#直接写入pip 
+ python setup.py install  
+ #查看 安装的依赖包 可以看到已安装了DjangoUeditor
+ pip list    
+</code></pre>
+<p>将djangoueditor添加到setting.py中</p>
+<pre><code>INSTALLED_APPS = [
+    ...
+    'DjangoUeditor',
+]
+
+#富文本框的设置
+UEDITOR_SETTINGS = {
+                       &quot;toolbars&quot;: {  # 定义多个工具栏显示的按钮，允行定义多个
+                           &quot;name1&quot;: [['source', '|', 'bold', 'italic', 'underline']],
+                           &quot;name2&quot;: []
+                   },
+                   &quot;images_upload&quot;:{
+                                       &quot;allow_type&quot;: &quot;jpg,png&quot;,  # 定义允许的上传的图片类型
+                                       &quot;max_size&quot;: &quot;2222kb&quot;  # 定义允许上传的图片大小，0代表不限制
+                                   },
+                                   &quot;files_upload&quot;: {
+    &quot;allow_type&quot;: &quot;zip,rar&quot;,  # 定义允许的上传的文件类型
+    &quot;max_size&quot;: &quot;2222kb&quot;  # 定义允许上传的文件大小，0代表不限制
+},
+&quot;image_manager&quot;: {
+    &quot;location&quot;: &quot;&quot;  # 图片管理器的位置,如果没有指定，默认跟图片路径上传一样
+},
+}
+MEDIA_URL='/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload/')#这个是在浏览器上访问该上传文件的url的前缀
+</code></pre>
+<h3 id="添加url">添加url</h3>
+<pre><code>urlpatterns = [
+    . . .
+    path('ueditor/',include('DjangoUeditor.urls')),
+]
+</code></pre>
+<h3 id="修改model">修改model</h3>
+<p>将模型中需要改为富文本添加的字段，一般为TextField，改为如下：</p>
+<pre><code>from DjangoUeditor.models import UEditorField
+class PostImg(models.Model):
+    # UEditorField继承自models.TextField, 因此你可以直接将model里面定义的models.TextField直接改成UEditorField即可。
+    # UEditorField提供了额外的参数：
+    # toolbars: 配置你想显示的工具栏，取值为mini, normal, full, besttome, 代表小，一般，全部, 涂伟忠贡献的一种样式。如果默认的工具栏不符合您的要求，您可以在settings里面配置自己的显示按钮。参见后面介绍。
+    # imagePath: 图片上传的路径, 如
+    # &quot;images/&quot;, 实现上传到
+    # &quot;{{MEDIA_ROOT}}/images&quot;
+    # 文件夹
+    # filePath: 附件上传的路径, 如
+    # &quot;files/&quot;, 实现上传到
+    # &quot;{{MEDIA_ROOT}}/files&quot;
+    # 文件夹
+    # scrawlPath: 涂鸦文件上传的路径, 如
+    # &quot;scrawls/&quot;, 实现上传到
+    # &quot;{{MEDIA_ROOT}}/scrawls&quot;
+    # 文件夹, 如果不指定则默认 = imagepath
+    # imageManagerPath: 图片管理器显示的路径，如
+    # &quot;imglib/&quot;, 实现上传到
+    # &quot;{{MEDIA_ROOT}}/imglib&quot;, 如果不指定则默认 = imagepath。
+    # options：其他UEditor参数，字典类型。参见Ueditor的文档ueditor_config.js里面的说明。
+    # css: 编辑器textarea的CSS样式
+    # width，height: 编辑器的宽度和高度，以像素为单位。
+    # ————————————————
+     detail = UEditorField(verbose_name = '内容', height=500, width=1000,
+                           default=u'', imagePath=&quot;Article_img/%%Y/%%m/&quot;,
+                           toolbars='full', filePath='%%Y/%%m/',
+                           upload_settings={&quot;imageMaxSize&quot;: 1204000},
+                           settings={}, command=None,)
+
+     class Meta:
+         verbose_name = '图片管理'
+         verbose_name_plural = verbose_name
+
+     def __str__(self):
+         return &quot;图片&quot;
+</code></pre>
+<h3 id="xadmin中添加插件ueditor">xadmin中添加插件ueditor</h3>
+<p>在xadmin下的plugin中新建一个ueditor.py文件，里面写入如下：</p>
+<pre><code>import xadmin
+from xadmin.views import BaseAdminPlugin, CreateAdminView, ModelFormAdminView, UpdateAdminView
+from DjangoUeditor.models import UEditorField
+from DjangoUeditor.widgets import UEditorWidget
+from django.conf import settings
+
+
+class XadminUEditorWidget(UEditorWidget):
+    def __init__(self,**kwargs):
+        self.ueditor_options=kwargs
+        self.Media.js = None
+        super(XadminUEditorWidget,self).__init__(kwargs)
+
+class UeditorPlugin(BaseAdminPlugin):
+
+    def get_field_style(self, attrs, db_field, style, **kwargs):
+        if style == 'ueditor':
+            if isinstance(db_field, UEditorField):
+                widget = db_field.formfield().widget
+                param = {}
+                param.update(widget.ueditor_settings)
+                param.update(widget.attrs)
+                return {'widget': XadminUEditorWidget(**param)}
+        return attrs
+
+    def block_extrahead(self, context, nodes):
+        js = '&lt;script type=&quot;text/javascript&quot; src=&quot;%s&quot;&gt;&lt;/script&gt;' % (settings.STATIC_URL + &quot;ueditor/ueditor.config.js&quot;)         #自己的静态目录
+        js += '&lt;script type=&quot;text/javascript&quot; src=&quot;%s&quot;&gt;&lt;/script&gt;' % (settings.STATIC_URL + &quot;ueditor/ueditor.all.js&quot;)   #自己的静态目录
+        nodes.append(js)
+
+xadmin.site.register_plugin(UeditorPlugin, UpdateAdminView)
+xadmin.site.register_plugin(UeditorPlugin, CreateAdminView)
+</code></pre>
+<p>这俩如果是直接拖进项目的话 此时不用管的静态目录了;如果不是的话把你刚刚下载的如下图
+<img src="https://jackwuhao.github.io/post-images/1575033432935.png" alt=""></p>
+<p>把ueditor 加入到static 目录下 最后文件目录如下
+<img src="https://jackwuhao.github.io/post-images/1575033296092.png" alt=""></p>
+<h3 id="将ueditor添加到plugin下的_init_中">将ueditor添加到plugin下的_init_中</h3>
+<pre><code>PLUGINS = (
+    ...
+    'ueditor',
+)
+</code></pre>
+<h3 id="将ueditor添加到adminxpy中">将ueditor添加到adminx.py中</h3>
+<pre><code>class PostImgAdmin(object):
+    list_display = ['detail',]
+    #添加富文本编辑框(注意这里的字段要与你上面定义的字段名一样否者显示不出来)
+    style_fields = {&quot;detail&quot;: &quot;ueditor&quot;}
+</code></pre>
+<h3 id="在前端显示的话需要对html页面修改如下来阻止字符的转义">在前端显示的话，需要对html页面修改如下来阻止字符的转义</h3>
+<p>就是前端界面使用PostImg.detail这个字段的时候</p>
+<pre><code>{% autoescape off %}
+{{ postImg.detail }}
+{% endautoescape %}
+</code></pre>
+<p>最后运行<br>
+<img src="https://jackwuhao.github.io/post-images/1575034329668.png" alt=""></p>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/django-ji-cheng-xadmin" rel="next"> django  集成 xadmin</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>
