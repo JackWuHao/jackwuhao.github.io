@@ -210,11 +210,58 @@ if [ $a != $b ]
 then
   echo &quot;不等&quot;
 else
-  echo &quot;不相等&quot;
+  echo &quot;相等&quot;
 fi
 </code></pre>
 <p>输出</p>
 <pre><code>不等
+</code></pre>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<p><img src="https://jackwuhao.github.io/post-images/1575378679656.png" alt=""></p>
+<pre><code>#! /bin/sh
+a=10
+b=20
+
+if [[ $a -lt 100  &amp;&amp;  $b -lt 100 ]]
+then
+  echo &quot;ture&quot;
+else
+  echo &quot;false&quot;
+fi
+</code></pre>
+<p>输出</p>
+<pre><code>ture
+</code></pre>
+<h2 id="字符串运算符">字符串运算符</h2>
+<p><img src="https://jackwuhao.github.io/post-images/1575379528553.png" alt=""></p>
+<pre><code>#! /bin/sh
+
+a=&quot;abc&quot;
+b=&quot;efg&quot;
+if [ $a = $b ]
+then
+  echo &quot;等于&quot;
+else
+  echo &quot;不等于&quot;
+fi
+</code></pre>
+<p>输出</p>
+<pre><code>不等于
+</code></pre>
+<h2 id="文件测试运算符">文件测试运算符</h2>
+<p><img src="https://jackwuhao.github.io/post-images/1575380352894.png" alt=""></p>
+<pre><code>#! /bin/sh
+
+file=&quot;/Users/apple/Documents/Shell/for.sh&quot;
+if [ -r $file ]
+then
+  echo  &quot;可读&quot;
+else
+  echo  &quot;不可读&quot;
+fi
+</code></pre>
+<p>输出</p>
+<pre><code>可读
 </code></pre>
 <p><a href="https://github.com/JackWuHao/shell/tree/master">shell用法更新中</a></p>
 </p>
