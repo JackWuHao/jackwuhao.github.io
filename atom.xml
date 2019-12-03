@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-11-29T13:38:33.454Z</updated>
+    <updated>2019-12-03T13:01:47.910Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,135 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[shell 的使用]]></title>
+        <id>https://jackwuhao.github.io/post/shell-de-shi-yong</id>
+        <link href="https://jackwuhao.github.io/post/shell-de-shi-yong">
+        </link>
+        <updated>2019-12-03T12:03:03.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="用法介绍">用法介绍</h1>
+<h2 id="第一种">第一种</h2>
+<pre><code>添加权限
+chmod +x    test.sh
+./ tesh.sh
+</code></pre>
+<h2 id="第二种">第二种</h2>
+<pre><code>bash test.sh
+</code></pre>
+<h2 id="第三种">第三种</h2>
+<pre><code>soure test.sh
+</code></pre>
+<h2 id="变量">变量</h2>
+<pre><code>#！/bin/sh
+name=&quot;xiaocao&quot;
+echo $name
+</code></pre>
+<h2 id="传值">传值</h2>
+<pre><code>#! /bin/sh
+echo &quot;shell 传递参数&quot;
+echo &quot;执行文件名： $0&quot;
+echo &quot;第一个参数： $1&quot;
+</code></pre>
+<pre><code>chmod +x     byCard.sh   12
+./ tesh.sh
+</code></pre>
+<p>输出</p>
+<pre><code>shell 传递参数
+执行文件名： byCard.sh
+第一个参数： 12
+</code></pre>
+<h2 id="数组">数组</h2>
+<pre><code>#! /bin/sh
+arry_name=(&quot;1&quot; &quot;2&quot; &quot;3&quot;)
+echo ${arry_name[1]}   
+echo ${arry_name[@]} #全部
+echo ${#arry_name[@]} #长度
+</code></pre>
+<p>执行</p>
+<pre><code>bash arry.sh 
+</code></pre>
+<p>输出</p>
+<pre><code>2
+1 2 3
+3
+</code></pre>
+<h2 id="算数运算符">算数运算符</h2>
+<p>符号| 含义</p>
+<ul>
+<li>|  加法</li>
+</ul>
+<ul>
+<li>
+<pre><code>|   减法
+</code></pre>
+</li>
+</ul>
+<ul>
+<li>
+<pre><code>|   乘法
+</code></pre>
+</li>
+</ul>
+<p>/     |    除法
+%   |   取余
+=    |  赋值
+==  |  相等
+!=   |  不相等</p>
+<h3 id="原生bash不支持简单的数学运算但是可以通过其他命令来实现例如-awk-和-exprexpr-最常用">原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。</h3>
+<p>expr 是一款表达式计算工具，使用它能完成表达式的求值操作。</p>
+<pre><code>#! /bin/sh
+a=`expr 2 - 3`
+echo ${a}
+</code></pre>
+<p>输出</p>
+<pre><code>-1
+</code></pre>
+<h2 id="关系运算符">关系运算符</h2>
+<h3 id="关系运算符只支持数字不支持字符串除非字符串的值是数字">关系运算符只支持数字，不支持字符串，除非字符串的值是数字</h3>
+<p>符号  |   含义
+-eq    |    检测两个数是否相等，相等返回 true
+-ne    |    检测两个数是否不相等，不相等返回 true
+-gt     |   检测左边的数是否大于右边的，如果是，则返回 true
+-lt      |   检测左边的数是否小于右边的，如果是，则返回 true
+-ge    |   检测左边的数是否大于等于右边的，如果是，则返回 true
+-le     |   检测左边的数是否小于等于右边的，如果是，则返回 true</p>
+<pre><code>
+</code></pre>
+<p>代码：</p>
+<pre><code>a=10
+b=20
+if [ $a -eq  $b ]
+then
+   echo &quot;相等&quot;
+else
+   echo &quot;不相等&quot;
+fi
+</code></pre>
+<p>输出</p>
+<pre><code>不相等
+</code></pre>
+<h2 id="布尔运算符">布尔运算符</h2>
+<p>符号| 含义
+！ |   非运算，表达式为 true
+-o |   或运算，有一个表达式为 true 则返回 true
+-a |   与运算，两个表达式都为 true 才返回 true</p>
+<pre><code>#! /bin/sh
+a=10
+b=20
+
+if [ $a != $b ]
+then
+  echo &quot;不等&quot;
+else
+  echo &quot;不相等&quot;
+fi
+</code></pre>
+<p>输出</p>
+<pre><code>不等
+</code></pre>
+<p><a href="https://github.com/JackWuHao/shell/tree/master">shell用法更新中</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[xadmin  添加富文本编辑框UEditor的用法（坑是真的多）]]></title>
         <id>https://jackwuhao.github.io/post/xadmin-tian-jia-fu-wen-ben-bian-ji-kuang-ueditor-de-yong-fa-keng-shi-zhen-de-duo</id>
@@ -780,15 +909,6 @@ print(&quot;aaaa&quot;)
 都是通过对不同的组件进行组装进行开发
 <a href="https://developer.apple.com/tutorials/swiftui">swift组件介绍</a>
 <a href="https://github.com/JackWuHao/swiftUI.git">demo</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[修改http请求为https]]></title>
-        <id>https://jackwuhao.github.io/post/xiu-gai-http-qing-qiu-wei-https</id>
-        <link href="https://jackwuhao.github.io/post/xiu-gai-http-qing-qiu-wei-https">
-        </link>
-        <updated>2019-11-16T02:52:23.000Z</updated>
-        <content type="html"><![CDATA[<p>https://certbot.eff.org     选择系统和软件完后直接安装就行了，安装的时候注意下英文提示。看不懂的请翻译</p>
 ]]></content>
     </entry>
 </feed>
