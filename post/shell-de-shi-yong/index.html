@@ -252,6 +252,100 @@ fi
 <p>输出</p>
 <pre><code>可读
 </code></pre>
+<h2 id="echo命令">echo命令</h2>
+<pre><code>#! /bin/sh
+echo ti tis a test
+#转义
+echo \&quot;It is a test\&quot;
+#显示变量
+read  name
+echo &quot;$name ti tis atesr&quot;
+
+echo &quot;OK! \n&quot;
+echo &quot;It is a test&quot;
+
+echo &quot;OK! \c&quot;
+echo &quot;Tt is a test&quot;
+
+#echo &quot;ti is a test &quot; &gt;outFile
+echo `date`
+</code></pre>
+<p>输出</p>
+<pre><code>ti tis a test
+&quot;It is a test&quot;
+xiaocao
+xiaocao ti tis atesr
+OK! 
+
+It is a test
+OK! Tt is a test
+2019年12月 4日 星期三 20时49分12秒 CST
+</code></pre>
+<h2 id="printf命令">printf命令</h2>
+<pre><code>#! /bin/sh
+
+echo &quot;Hello ,Shell&quot;
+printf &quot;Hello,Shell \n&quot;
+
+printf &quot;%-10s %-8s %-4s \n&quot; 姓名  性别   体重kg
+printf &quot;%-10s %-8s %-4.2f\n&quot; 郭靖 男 66.1234
+printf &quot;%-10s %-8s %-4.2f\n&quot; 杨过 男 48.6543
+
+printf &quot;%d %s\n&quot; 1 &quot;abc&quot;
+
+printf &quot;%s\n&quot; avc
+
+printf &quot;%s %s %s\n&quot; a b c d e f g h i j
+</code></pre>
+<p>输出：</p>
+<pre><code>Hello ,Shell
+Hello,Shell 
+姓名     性别   体重kg 
+郭靖     男      66.12
+杨过     男      48.65
+1 abc
+avc
+a b c
+d e f
+g h i
+j  
+
+</code></pre>
+<h2 id="test-命令">test 命令</h2>
+<pre><code>#! /bin/sh
+num1=100
+num2=100
+
+if test $[num1] -eq $[num2]
+then
+  echo &quot;相等&quot;
+else
+  echo &quot;不相等&quot;
+fi
+
+num1=&quot;11&quot;
+num2=&quot;1123&quot;
+if test $num1 = $num2
+then
+    echo '两个字符串相等!'
+else
+    echo '两个字符串不相等!'
+fi
+
+cd /bin
+if test -e ./bash
+then
+  echo &quot;文件存在&quot;
+else
+  echo &quot;文件不存在&quot;
+fi
+
+</code></pre>
+<p>输出：</p>
+<pre><code>相等
+两个字符串不相等!
+文件存在
+</code></pre>
 <p><a href="https://github.com/JackWuHao/shell/tree/master">shell用法更新中</a></p>
 </p>
 							</div>
