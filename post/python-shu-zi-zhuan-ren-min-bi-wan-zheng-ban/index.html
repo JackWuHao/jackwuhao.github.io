@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>python 数字转人民币完整版 | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">python 数字转人民币完整版</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/python-shu-zi-zhuan-ren-min-bi-wan-zheng-ban">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-12-09</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><pre><code>#把一个浮点数转为整数和小数部分
+def divider(num):
+    interger = int(num)
+    #返回浮点数x的四舍五入值。
+    fraction = round((num - interger)*100)
+    return (str(interger),str(fraction))
+
+han_list = [&quot;零&quot;,&quot;壹&quot;, &quot;贰&quot;, &quot;叁&quot;, &quot;肆&quot;, &quot;伍&quot;, &quot;陆&quot;, &quot;柒&quot;, &quot;捌&quot;, &quot;玖&quot;]
+unit_list=[&quot;十&quot;,&quot;百&quot;,&quot;千&quot;]
+unit_decol_list = [&quot;角&quot;, &quot;分&quot;]
+
+#处理整数
+def four_to_hanstr(num_str):
+    result= &quot;&quot;
+    num_len = len(num_str)
+    for i in range(num_len):
+        num = int(num_str[i])
+
+        if i!=num_len-1 and num!=0:
+            result +=han_list[num] + unit_list[num_len-2-i]
+        else:
+            result +=han_list[num]
+    if '零零零零' in result:
+        result = list(result)
+        result.clear()
+
+    elif '零零零' in result:
+        if result[0] == '零':
+            a = result.find('零零零')
+            result = list(result)
+            del result[a]
+            del result[a]
+        else:
+            a = result.find('零零零')
+            result = list(result)
+            del result[a]
+            del result[a]
+            del result[a]
+
+    elif '零零' in result:
+        if result[-1] == '零':
+            a = result.find('零零')
+            result=list(result)
+            del result[-1]
+            del result[-1]
+
+        else:
+            a = result.find('零零')
+            result = list(result)
+            del result[a]
+    elif result[-1]=='零':
+        result =list(result)
+        del result[-1]
+    return ''.join(result)
+
+#处理小数点
+def newfraction(new_str):
+    new_result =&quot;&quot;
+    num_len = len(new_str)
+    for i in range(num_len):
+        num = int(new_str[i])
+        new_result += han_list[num] + unit_decol_list[i]
+    return new_result
+
+
+def interger_to_str(num_str):
+    str_len = len(num_str)
+    if str_len &gt; 12:
+        print(&quot;数字太大了翻译不了&quot;)
+    elif str_len &gt; 8:
+        return four_to_hanstr(num_str[:-8])+&quot;亿&quot; + four_to_hanstr(num_str[-8:-4])+&quot;万&quot;+ four_to_hanstr(num_str[-4:])
+    elif str_len &gt; 4:
+        return four_to_hanstr(num_str[:-4]) + &quot;万&quot; + four_to_hanstr(num_str[-4:])
+    else:
+        return four_to_hanstr(num_str)
+
+
+def main(num=0):
+    interger, fraction = divider(num)
+    b = interger_to_str(interger)
+    if len(b)&gt; 0:
+        b= b + '元'
+    c=&quot;0&quot;
+    if int(fraction) &gt; 0:
+        c = newfraction(fraction)
+    print(b + c)
+
+if __name__ == '__main__':
+        try:
+            num = float(input(&quot;请输入一个浮点数:\n&quot;))
+            main(num)
+        except ValueError as e:
+            print(&quot;你输入了非法数字，请重新输入&quot;)
+</code></pre>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/shell-de-shi-yong" rel="next"> shell 的使用</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>

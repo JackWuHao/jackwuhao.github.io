@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-04T13:53:17.374Z</updated>
+    <updated>2019-12-09T11:52:45.716Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,108 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[python 数字转人民币完整版]]></title>
+        <id>https://jackwuhao.github.io/post/python-shu-zi-zhuan-ren-min-bi-wan-zheng-ban</id>
+        <link href="https://jackwuhao.github.io/post/python-shu-zi-zhuan-ren-min-bi-wan-zheng-ban">
+        </link>
+        <updated>2019-12-09T11:31:20.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>#把一个浮点数转为整数和小数部分
+def divider(num):
+    interger = int(num)
+    #返回浮点数x的四舍五入值。
+    fraction = round((num - interger)*100)
+    return (str(interger),str(fraction))
+
+han_list = [&quot;零&quot;,&quot;壹&quot;, &quot;贰&quot;, &quot;叁&quot;, &quot;肆&quot;, &quot;伍&quot;, &quot;陆&quot;, &quot;柒&quot;, &quot;捌&quot;, &quot;玖&quot;]
+unit_list=[&quot;十&quot;,&quot;百&quot;,&quot;千&quot;]
+unit_decol_list = [&quot;角&quot;, &quot;分&quot;]
+
+#处理整数
+def four_to_hanstr(num_str):
+    result= &quot;&quot;
+    num_len = len(num_str)
+    for i in range(num_len):
+        num = int(num_str[i])
+
+        if i!=num_len-1 and num!=0:
+            result +=han_list[num] + unit_list[num_len-2-i]
+        else:
+            result +=han_list[num]
+    if '零零零零' in result:
+        result = list(result)
+        result.clear()
+
+    elif '零零零' in result:
+        if result[0] == '零':
+            a = result.find('零零零')
+            result = list(result)
+            del result[a]
+            del result[a]
+        else:
+            a = result.find('零零零')
+            result = list(result)
+            del result[a]
+            del result[a]
+            del result[a]
+
+    elif '零零' in result:
+        if result[-1] == '零':
+            a = result.find('零零')
+            result=list(result)
+            del result[-1]
+            del result[-1]
+
+        else:
+            a = result.find('零零')
+            result = list(result)
+            del result[a]
+    elif result[-1]=='零':
+        result =list(result)
+        del result[-1]
+    return ''.join(result)
+
+#处理小数点
+def newfraction(new_str):
+    new_result =&quot;&quot;
+    num_len = len(new_str)
+    for i in range(num_len):
+        num = int(new_str[i])
+        new_result += han_list[num] + unit_decol_list[i]
+    return new_result
+
+
+def interger_to_str(num_str):
+    str_len = len(num_str)
+    if str_len &gt; 12:
+        print(&quot;数字太大了翻译不了&quot;)
+    elif str_len &gt; 8:
+        return four_to_hanstr(num_str[:-8])+&quot;亿&quot; + four_to_hanstr(num_str[-8:-4])+&quot;万&quot;+ four_to_hanstr(num_str[-4:])
+    elif str_len &gt; 4:
+        return four_to_hanstr(num_str[:-4]) + &quot;万&quot; + four_to_hanstr(num_str[-4:])
+    else:
+        return four_to_hanstr(num_str)
+
+
+def main(num=0):
+    interger, fraction = divider(num)
+    b = interger_to_str(interger)
+    if len(b)&gt; 0:
+        b= b + '元'
+    c=&quot;0&quot;
+    if int(fraction) &gt; 0:
+        c = newfraction(fraction)
+    print(b + c)
+
+if __name__ == '__main__':
+        try:
+            num = float(input(&quot;请输入一个浮点数:\n&quot;))
+            main(num)
+        except ValueError as e:
+            print(&quot;你输入了非法数字，请重新输入&quot;)
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[shell 的使用]]></title>
         <id>https://jackwuhao.github.io/post/shell-de-shi-yong</id>
@@ -1007,18 +1109,6 @@ print(&quot;aaaa&quot;)
 
   	 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SWIFTUI]]></title>
-        <id>https://jackwuhao.github.io/post/swiftui</id>
-        <link href="https://jackwuhao.github.io/post/swiftui">
-        </link>
-        <updated>2019-11-19T03:26:59.000Z</updated>
-        <content type="html"><![CDATA[<p>swiftUI ,距离实际运用还差的很多，如果之前用过flutter，会感觉很相似，一个一切皆widget,一个一皆view
-都是通过对不同的组件进行组装进行开发
-<a href="https://developer.apple.com/tutorials/swiftui">swift组件介绍</a>
-<a href="https://github.com/JackWuHao/swiftUI.git">demo</a></p>
 ]]></content>
     </entry>
 </feed>
