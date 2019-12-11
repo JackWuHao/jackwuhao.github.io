@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-09T13:43:30.660Z</updated>
+    <updated>2019-12-11T02:28:56.274Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,183 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于五子棋，胜负判断的优化（绕圈圈问题有感）]]></title>
+        <id>https://jackwuhao.github.io/post/guan-yu-wu-zi-qi-sheng-fu-pan-duan-de-you-hua-rao-quan-quan-wen-ti-you-gan</id>
+        <link href="https://jackwuhao.github.io/post/guan-yu-wu-zi-qi-sheng-fu-pan-duan-de-you-hua-rao-quan-quan-wen-ti-you-gan">
+        </link>
+        <updated>2019-12-11T01:30:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="基础">基础</h2>
+<h3 id="搭建棋盘粗略的过一遍">搭建棋盘（粗略的过一遍）</h3>
+<pre><code>ROUND_SIZE=7 #棋盘大小
+MAX_COUNT=5 #胜利条件
+board=[]
+
+#画棋盘
+def initBorad():
+    for i in range(ROUND_SIZE):
+       row = [' □  '] * ROUND_SIZE
+       board.append(row)
+
+
+#在控制台输出棋盘的方法
+def printBoard():
+    for i in range(ROUND_SIZE):
+        for j in range(ROUND_SIZE):
+            print(board[i][j],end=&quot;&quot;)
+
+        print()
+				
+if __name__ == '__main__':
+    initBorad()
+    printBoard()
+    inputStr = input(&quot;请输入你下棋的坐标，应以x,y的格式：\n&quot;)
+		  #注意构建的棋盘是以(0,0)为起点的，输入的时候是以(1,1)为起点的
+    while inputStr != None:
+        x_str, y_str = inputStr.split(sep=&quot;,&quot;) 
+				board[int(y_str) - 1][int(x_str) - 1] = ' ●  '
+        printBoard()
+        inputStr = input(&quot;请继续输入你下棋的坐标，应以x,y的格式：\n&quot;)       
+</code></pre>
+<h2 id="判断重复落子问题">判断重复落子问题</h2>
+<pre><code>def repeatBoad(x,y):
+    str = board[int(y)-1][int(x)-1]
+    if str == ' ●  ':
+        print(&quot;\t 棋子重复&quot;)
+        return False
+    else:
+        return True
+</code></pre>
+<h2 id="重点判断胜负问题">（重点)判断胜负问题</h2>
+<h3 id="胜利条件是同色五子连线">胜利条件是同色五子连线</h3>
+<h4 id="每次你落子时此时棋子的坐标为xy以此点为基点可分为横向纵向斜向上斜向下4个方向此时我们把每一个方向都看作一个一维list这样就避免考虑了边界问题以及各种判断问题问题就简化为以下两个方面">每次你落子时，此时棋子的坐标为(x,y)以此点为基点，可分为横向，纵向，斜向上，斜向下，4个方向，此时我们把每一个方向都看作一个一维list,这样就避免考虑了边界问题，以及各种判断问题，问题就简化为以下两个方面</h4>
+<h6 id="1-求各个方向的list">1 求各个方向的list</h6>
+<h6 id="2-求各个list的最大重数问题">2 求各个list的最大重数问题</h6>
+<h3 id="接下来我们先解决最大重复数问题">接下来我们先解决最大重复数问题</h3>
+<h5 id="求一个list的最大重复数">求一个list的最大重复数</h5>
+<pre><code>import itertools
+
+a=[1,1,1,1,2,2,2,2,2,3,3,1,1,1,3]
+
+print ( max([len(list(v)) for k, v in itertools.groupby(a) ]) )
+</code></pre>
+<h4 id="求一个list的指定数字的最大重复数">求一个list的指定数字的最大重复数</h4>
+<pre><code>#求1的自大重复数
+import itertools
+
+a=[1,1,1,1,2,2,2,2,2,3,3,1,1,1,3]
+
+print ( max([len(list(v)) for k, v in itertools.groupby(a) if k==1]) )
+</code></pre>
+<h3 id="横向检测">横向检测</h3>
+<h4 id="求当前落子x轴的所有元素">求当前落子x轴的所有元素</h4>
+<pre><code>#检测横线方向
+def hengxian(x,y):
+    hen_list =[]
+    for i  in range(ROUND_SIZE):
+        str = board[int(y)][int(i)]
+        hen_list.append(str)
+    max_count = max([len(list(v)) for k, v in itertools.groupby(hen_list) if k ==' ●  '])
+    if max_count==MAX_COUNT:
+        print(&quot;玩家胜利&quot;)
+        return True
+    else:
+        return False
+</code></pre>
+<h3 id="纵向检测">纵向检测</h3>
+<h4 id="求当前落子y轴的所有元素">求当前落子y轴的所有元素</h4>
+<pre><code>#检测纵向
+def zongxiang(x,y):
+    zong_list=[]
+    for i in range(ROUND_SIZE):
+        str = board[int(i)][int(x)]
+        zong_list.append(str)
+
+    max_count = max([len(list(v)) for k, v in itertools.groupby(zong_list) if k ==' ●  '])
+    if max_count==MAX_COUNT:
+        print(&quot;玩家胜利&quot;)
+        return True
+    else:
+        return False
+</code></pre>
+<h3 id="斜线向上检测">斜线向上检测</h3>
+<h5 id="这里以77的棋盘举例以17263544536271这条斜线通过观察我们可的斜线上的xy的值都相等">这里以7*7的棋盘举例以（1,7）,(2,6),(3,5),(4,4),(5,3),(6,2),(7,1)这条斜线通过观察我们可的斜线上的x+y的值都相等</h5>
+<pre><code>#对角检测（即斜向上）
+def duijiao(x,y):
+    duijiao_list = []
+    for i in range(ROUND_SIZE):
+        for j in range(ROUND_SIZE):
+            if  x+y == j+i:
+                str = board[int(j)][int(i)]
+                duijiao_list.append(str)
+
+    max_count = max([len(list(v)) for k, v in itertools.groupby(duijiao_list) if k == ' ●  '])
+    if max_count == MAX_COUNT:
+        print(&quot;玩家胜利&quot;)
+        return True
+    else:
+        return False
+</code></pre>
+<h3 id="斜向下检测">斜向下检测</h3>
+<h4 id="这里还是以77的棋盘举例以6172这条斜线-以及1627为例-可以发现x-y的绝对值都相等">这里还是以7*7的棋盘举例以（6,1）,(7,2)这条斜线 以及（1,6）,(2,7)为例 可以发现|x-y|的绝对值都相等</h4>
+<pre><code>#（x&gt;=y）时
+#斜线检测
+def xiexian_down(x,y):
+    xiexian_list=[]
+    for i  in range(ROUND_SIZE):
+        for j in range(ROUND_SIZE):
+             if x&gt;=y and (x-y ==(i-j)):
+                 str = board[int(j)][int(i)]
+                 xiexian_list.append(str)
+
+    max_count = max([len(list(v)) for k, v in itertools.groupby(xiexian_list) if k ==' ●  '])
+    if max_count==MAX_COUNT:
+        print(&quot;玩家胜利&quot;)
+        return True
+    else:
+        return False
+				
+#（x&lt;y）时
+#斜线检测				
+def xiexian_up(x, y):
+    xiexian_list = []
+    for i in range(ROUND_SIZE):
+        for j in range(ROUND_SIZE):
+            if x &lt;= y and (y - x == (j - i)):
+                str = board[int(j)][int(i)]
+                xiexian_list.append(str)
+
+    max_count = max([len(list(v)) for k, v in itertools.groupby(xiexian_list) if k == ' ●  '])
+    if max_count == MAX_COUNT:
+        print(&quot;玩家胜利&quot;)
+        return True
+    else:
+        return False				
+</code></pre>
+<h3 id="修改主程序">修改主程序</h3>
+<pre><code>if __name__ == '__main__':
+    initBorad()
+    printBoard()
+    inputStr = input(&quot;请输入你下棋的坐标，应以x,y的格式：\n&quot;)
+    while inputStr != None:
+        x_str, y_str = inputStr.split(sep=&quot;,&quot;)
+        if repeatBoad(x_str,y_str):
+            # 为对应的列表元素赋值' ●  '
+            board[int(y_str) - 1][int(x_str) - 1] = ' ●  '
+            printBoard()
+            if sucess_failure(int(x_str) - 1, int(y_str) - 1): #判断胜负
+                break
+            else:
+                inputStr = input(&quot;请继续输入你下棋的坐标，应以x,y的格式：\n&quot;)
+
+        else:
+            printBoard()
+            inputStr = input(&quot;请重新输入你下棋的坐标，应以x,y的格式：\n&quot;)
+</code></pre>
+<p><a href="https://github.com/JackWuHao/gobang.git">完整demo</a></p>
+<h2 id="胜负判断问题搞定还有很多未完善的地方未完待续">胜负判断问题搞定，还有很多未完善的地方，未完待续</h2>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[绕圈圈问题]]></title>
         <id>https://jackwuhao.github.io/post/rao-quan-quan-wen-ti</id>
@@ -940,112 +1117,6 @@ if __name__ == '__main__':
 
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[git 自动化 post-receive用法（服务器自动化部署的原理）建议先看post-commit的用法]]></title>
-        <id>https://jackwuhao.github.io/post/git-zi-dong-hua-post-receive-yong-fa-fu-wu-qi-zi-dong-hua-bu-shu-de-yuan-li</id>
-        <link href="https://jackwuhao.github.io/post/git-zi-dong-hua-post-receive-yong-fa-fu-wu-qi-zi-dong-hua-bu-shu-de-yuan-li">
-        </link>
-        <updated>2019-11-19T13:34:57.000Z</updated>
-        <content type="html"><![CDATA[<p>post-receive 的用法比post-commit用法复杂点
-基础知识：git基础  linux基础命令   git remote .git init的用法 ,git远程和本地仓库的区别和联系 ssh连接
-非必须知识： 你嫌弃github慢的话你也可以自己集成gitlab或者gitweb
-需要的工具：一台安装了git的linux服务器，一台安装了git的电脑
-上面的内容请自己goole 或 百度
-1.远程连接自己的linux服务器打开终端
-一般不直接在root用户下添加.（root的权限太高了，为了服务器的安全）
-1.添加git用户:</p>
-<pre><code>     //添加用户git  （输密码的时候记着在其他地方记录下别忘记了）
-    adduser git 
-
-    //我这里把密码设置为git了
-    passwd git 
-</code></pre>
-<ol start="2">
-<li>把用户添加到用户组</li>
-</ol>
-<pre><code>	//一:切换到root用户下 
-   su root  
-	 //二：添加sudo文件的写权限 (记得w后面有空格)
-	 chmod u+w  /etc/sudoers
-	 // 第三步：编辑sudoers文件 
-       vi  /etc/sudoers
-   找到这行 root ALL=(ALL) ALL,在他下面添加xxx ALL=(ALL) ALL (这里的xxx是你的用户名) 
-	 治理添加
-	 git    ALL=(ALL) ALL 
-	 //四:撤销sudoers文件写权限
-	 chmod u-w  /etc/sudoers
-</code></pre>
-<p>2 .创建完成后</p>
-<pre><code>//切换为git用户
-su git 
-//创建 存储你代码的文件 /data/wwwroot/testDeploy/test目录
-  sudo mkdir -p  /data/wwwroot/testDeploy/test
-</code></pre>
-<p>3.初始化裸仓库</p>
-<pre><code>cd  /home/git
- sudo git  init --bare test.git
-</code></pre>
-<p>4.git授权</p>
-<pre><code>sudo chown -R git lara.git
-</code></pre>
-<p>5 cd到 你刚才创建的/data/wwwroot/testDeploy/test目录下创建本地仓库</p>
-<pre><code>cd   /data/wwwroot/testDeploy/test
-//（其实就是配置本地git仓库）后面追加的路径是 你刚刚创建的远程仓库路径
-git clone  /home/git/test.git 
-</code></pre>
-<ol start="6">
-<li>配置hooks</li>
-</ol>
-<pre><code>cd /home/git/test.git/hooks/
-sudo vim post-receive 
-</code></pre>
-<p>这里贴一个shell脚本示例，具体的用法自己根据自己的实际情况自己添加</p>
-<pre><code>#!/bin/sh
-
-#判断是不是远端仓库（如果不是退出）
-IS_BARE=$(git rev-parse --is-bare-repository)
-if [ -z &quot;$IS_BARE&quot; ]; then
-echo &gt;&amp;2 &quot;fatal: post-receive: IS_NOT_BARE&quot;
-exit 1
-fi
-unset GIT_DIR
-DeployPath=&quot;/data/wwwroot/testDeploy/test&quot;
-
-echo &quot;==============================================
-
-cd $DeployPath
-echo &quot;deploying the test &quot;
-
-echo &quot;git&quot;| sudo -S git fetch --all
-echo &quot;git&quot;| sudo -S git reset --hard origin/master
-
-time=`date`
-echo &quot;数据刷新成功at time: $time.&quot;
-echo &quot;================================================&quot;
-</code></pre>
-<p>7 .执行shell脚本</p>
-<pre><code>sudo chmod +x  post-receive
-</code></pre>
-<p>测试一下脚本是否有问题</p>
-<pre><code>sudo ./post-receive
-</code></pre>
-<p>这样服务端就搞定了剩下客户端的了</p>
-<p>随便新起一个目录如test</p>
-<pre><code> cd  test
-// git clone :clone命令
-// git :表示的是服务器用户(如果你没配的话这里是root）
-//xxxx.xxx.x.xx: 表示你服务器的IP地址
-// /home/git/test.git :表示你上面创建的远程仓库路径
-git clone git@xxxx.xxx.x.xx:/home/git/test.git
-//随便修改点东西
-git add .
-git commit -m&quot;test&quot;
-git push 
-</code></pre>
-<p>这是登录你的服务器到  /data/wwwroot/testDeploy/test 查看 会发现你修改的同步到这里了，
-以上就是 post-receive，用来做服务器自动化部署的原理</p>
 ]]></content>
     </entry>
 </feed>
