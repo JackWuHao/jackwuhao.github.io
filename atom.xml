@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-11T02:28:56.274Z</updated>
+    <updated>2019-12-11T08:56:57.290Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,140 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[修改版控制台超市系统（原版有错误特此修改一版）]]></title>
+        <id>https://jackwuhao.github.io/post/xiu-gai-ban-kong-zhi-tai-chao-shi-xi-tong-yuan-ban-you-cuo-wu-te-ci-xiu-gai-yi-ban</id>
+        <link href="https://jackwuhao.github.io/post/xiu-gai-ban-kong-zhi-tai-chao-shi-xi-tong-yuan-ban-you-cuo-wu-te-ci-xiu-gai-yi-ban">
+        </link>
+        <updated>2019-12-11T08:33:34.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>import os
+#定义仓库
+repository =dict()
+
+ID=1000
+#定义购物清单
+shop_list=[]
+def init_repository():
+    #初始化很多商品，每个元组代表一个商品
+    goods1 = (&quot;1001&quot;,&quot;python&quot;,88.0)
+    goods2 = (&quot;1002&quot;,&quot;sWift&quot;,89.0)
+    goods3=(&quot;1003&quot;,&quot;Kotlin&quot;,90.0)
+    goods4=(&quot;1004&quot;,&quot;Java&quot;,91.0)
+    goods5=(&quot;1005&quot;,&quot;Android&quot;,92.0)
+    goods6=(&quot;1006&quot;,&quot;IOS&quot;,93.0)
+    repository[goods1[0]] = goods1
+    repository[goods2[0]] = goods2
+    repository[goods3[0]] = goods3
+    repository[goods4[0]] = goods4
+    repository[goods5[0]] = goods5
+    repository[goods6[0]] = goods6
+
+
+def show_goods():
+    print(&quot;\t\t\t\t欢迎光临，超市&quot;)
+    print(&quot;\t\t\t\t超市的购物清单&quot;)
+    print(&quot;%13s%40s%10s&quot; %(&quot;条码&quot;,&quot;商品名称&quot;,&quot;单价&quot;))
+    for goods in repository.values():
+        print(&quot;%15s%42s%14s&quot; % goods)
+
+
+#显示购物清单
+def show_list():
+    print(&quot;=&quot;*100)
+    if not shop_list:
+        print(&quot;\t\t\t\t购物清单为空！&quot;)
+    else:
+        print(&quot;\t\t\t\t\t购物清单&quot;)
+        title = &quot;%-5s|%15s|%40s|%10s|%4s|%10s&quot; %(&quot;ID&quot;,&quot;条码&quot;,&quot;商品名称&quot;,&quot;单价&quot;,&quot;数量&quot;,&quot;小计&quot;)
+        print(title)
+        print(&quot;-&quot;*100)
+
+        sum = 0
+        for i , item in enumerate(shop_list):
+            id = i + ID
+						## 这里原版是 item[0] , 是个元组,无法获取code
+            code = item[0][0]  
+            name = repository[code][1]
+            price = repository[code][2]
+            number = item[1]
+            amount = price * number
+
+            sum += amount
+
+            line = &quot;%-5s|%17s|%44s|%12s|%6s|%12s&quot; %(id,code,name,price,number,amount)
+            print(line)
+
+        print(&quot;-&quot;*100)
+        print(&quot;\t\t\t\t\t\t\t\t\t\t\t 总计：&quot;,sum)
+
+    print(&quot;=&quot;*100)
+
+#添加购卖的商品
+def add():
+    #等待条形码
+    code = input(&quot;请输入商品的条形码:\n&quot;)
+    if code not in repository:
+        print(&quot;条码错误，请重新输入&quot;)
+        return
+
+    goods = repository[code]
+    number =input(&quot;请输入购买数量:\n&quot;)
+    shop_list.append([goods,int(number)])
+
+    #编辑
+def edit():
+    id = input(&quot;请输入要修改的购物明细id:\n&quot;)
+    #获取索引
+    index = int(id) - ID
+    #根据索引获取购物消费的详情清单
+    item = shop_list[index]
+    #输入新的购买数量
+    number = input(&quot;请重新输入购买数量：\n&quot;)
+    #修改Item里面的number
+    item[1] = int(number)
+
+
+    #删除
+def delete():
+    id = input(&quot;请输入要删除的购物明细id：\n&quot;)
+    index =  int(id) -ID
+    del shop_list[index]
+
+
+def payment():
+    #打印清单
+    show_list()
+    print(&quot;\n&quot; *3)
+    print(&quot;欢迎下次光临！&quot;)
+    #退出
+    os._exit(0)
+
+#命令字典
+cmd_dict = {'a':add,'e':edit,'d':delete,'p':payment,'s':show_goods}
+
+def show_command():
+    cmd = input(&quot;请输入操作指令：\n&quot; + &quot;添加(a) 修改(e) 删除(d) 结算(p) 超市商品(s) \n&quot;)
+
+    # 如果用户输入的没有对应的命令：
+    if cmd  not in cmd_dict:
+        print(&quot;输入错误，请重新输入&quot;)
+    else:
+        cmd_dict[cmd]()
+
+def cleanCMD():
+    #清除控制台
+    os.system('cls')
+
+if __name__ == '__main__':
+    cleanCMD()
+    init_repository()
+    show_goods()
+    while True:
+     show_list()
+     show_command()
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于五子棋，胜负判断的优化（绕圈圈问题有感）]]></title>
         <id>https://jackwuhao.github.io/post/guan-yu-wu-zi-qi-sheng-fu-pan-duan-de-you-hua-rao-quan-quan-wen-ti-you-gan</id>
@@ -1033,89 +1167,6 @@ venv
 db.sqlite3
 studentManager/__pycache__/
 settings/base.py
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[狄克斯拉算法]]></title>
-        <id>https://jackwuhao.github.io/post/di-ke-si-la-suan-fa</id>
-        <link href="https://jackwuhao.github.io/post/di-ke-si-la-suan-fa">
-        </link>
-        <updated>2019-11-21T11:56:42.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="逻辑分析">逻辑分析：</h1>
-<p>1: 找出最便宜的的节点,可在短时间内前往的节点
-2: 对于该节点的邻居检查是否有其他节点，如果有就更新开销
-3：重复这个过程直到对图中的所有节点都这样做
-4：计算最终路径</p>
-<h1 id="用于解决的问题">用于解决的问题</h1>
-<p>1.从A出发是否存在到达B的路径；
-2.从A出发到达B的最短路径(时间最少、或者路径最少等)，事实上最后计算完成后，已经得到了A到各个节点的最短路径了；</p>
-<pre><code>#把所有的节点的邻居都存储在grash里面
-graph = {}
-graph[&quot;Start&quot;] = {}
-graph[&quot;Start&quot;][&quot;A&quot;] = 6
-graph[&quot;Start&quot;][&quot;B&quot;] = 2
-graph[&quot;A&quot;] = {}
-graph[&quot;A&quot;][&quot;End&quot;] = 4
-graph[&quot;B&quot;] = {}
-graph[&quot;B&quot;][&quot;C&quot;] = 1
-graph[&quot;B&quot;][&quot;End&quot;] = 7
-graph[&quot;C&quot;] = {}
-graph[&quot;C&quot;][&quot;A&quot;] = 4
-graph[&quot;C&quot;][&quot;End&quot;] = 5
-
-#infinity代表无穷大（或者未知）
-infinity = float(&quot;inf&quot;)
-#costs 代表所有的权重
-costs = {}
-costs[&quot;A&quot;] = 6
-costs[&quot;B&quot;] = 2
-costs[&quot;C&quot;] = infinity
-costs[&quot;End&quot;] = infinity
-#用来存储父节点
-parents = {}
-parents[&quot;A&quot;] = &quot;Start&quot;
-parents[&quot;B&quot;] = &quot;Start&quot;
-parents[&quot;C&quot;] = None
-parents[&quot;End&quot;] = None
-
-#用来记录处理过的节点
-processed = []
-
-#在未处理的节点里面找出开销最小的节点
-def findLowestCostNode(costs, processed):
-    lowest_cost = infinity
-    lowest_cost_node = None
-    for node in costs.keys():
-        cost = costs[node]
-        if  cost &lt; lowest_cost and node not in processed: #每次找到最小的并且并不存在在poressed里面
-            lowest_cost = cost
-            lowest_cost_node = node
-    return lowest_cost_node
-		
-def  getResult():
-       node = findLowestCostNode(costs, processed) #节点
-       while node is not None and node != &quot;End&quot;:
-        cost = costs[node] # 获取开销
-        print(node)
-        neighbors = graph[node]
-        for n in neighbors.keys():
-            new_cost = cost + neighbors[n]
-            if new_cost &lt; costs[n]:
-                costs[n] = new_cost
-                parents[n] = node
-
-        processed.append(node)
-        node = findLowestCostNode(costs, processed)
-   
-if __name__ == '__main__':
-      getResult()
-      print(costs)
-      print(parents)
-
-
-
-
 </code></pre>
 ]]></content>
     </entry>
