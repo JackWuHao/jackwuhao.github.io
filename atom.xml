@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-11T08:56:57.290Z</updated>
+    <updated>2019-12-12T09:36:16.746Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -10,6 +10,258 @@
     <logo>https://jackwuhao.github.io/images/avatar.png</logo>
     <icon>https://jackwuhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 吴浩的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[git 原理介绍及相关高频命令]]></title>
+        <id>https://jackwuhao.github.io/post/git-yuan-li-jie-shao-ji-xiang-guan-gao-pin-ming-ling</id>
+        <link href="https://jackwuhao.github.io/post/git-yuan-li-jie-shao-ji-xiang-guan-gao-pin-ming-ling">
+        </link>
+        <updated>2019-12-12T03:51:29.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://juejin.im/post/5dedc513f265da33e82bb294">原理介绍</a>
+<strong>平常开发sourceTree 够用了，下面命令了解下也是好的，当然你要是喜欢敲命令，比如我，那就得留意一下了</strong>
+**git log **</p>
+<pre><code>//最关键的
+git log --help （如果不懂有什么命令可以通过它查询）
+//完整输出
+git  log      
+//限定一行
+git log --oneline
+# 查看最近几个commit记录带上 - + 数字
+git log --oneline -1
+</code></pre>
+<p><strong>git  status</strong></p>
+<pre><code>git status --help （如果不懂有什么命令可以通过它查询）
+//查看工作区及索引区的变动
+git status
+//概要信息
+git status -s
+# 查询工作区中是否有stash存在（暂存的东西）,有则提醒该工作区有几个 stash
+git status  --show-stash
+#查询当前分支状态
+git status -b
+
+</code></pre>
+<p><strong>git branch</strong></p>
+<pre><code>//帮助查找其他命令
+git branch --help
+//创建分支
+git branch Dev
+//列出所有分支
+git branch -a
+//删除分支
+git branch -d  Dev
+//重命名
+git branch -M oldDev  new Dev
+//指定它的当前分支的上游分支,两个写法一致的
+git branch --set-upstream-to origin Dev 
+//取消关联
+git branch --unset-upstream-to origin Dev
+</code></pre>
+<p><strong>git checkout</strong></p>
+<pre><code>//查看其他命令
+git checkout  --help
+//切换本地分支
+git checkout Dev
+//切换远程分支
+git checkout origin/Dev
+// 基于远程分支创建本地分支(前提有远程分支)
+git checkout --track origin/develop
+// 创建并切换到新分支
+git checkout -b Dev
+//彻底丢弃某个文件的改动
+git checkout -- file
+//放弃本地所有改动
+git checkout 
+//切换上一个分支
+git checkout -
+</code></pre>
+<p><strong>git stash</strong></p>
+<pre><code>//查看其他命令
+git stash --help
+//保存
+git stash push -m &quot;更改了 xx&quot; 
+//查看所有缓存记录
+git stash list
+//取缓存，保留记录
+git stash  apply stash@{0}
+//取缓存，删除记录
+git stash pop  stash@{0}
+//清空所有缓存(使用前，请慎重)
+git stash clear 
+//清除指定缓存
+git stash drop stash@{0}
+//查看缓存变动
+git stash show stash@{0}
+</code></pre>
+<p><strong>git commit</strong></p>
+<pre><code>//查看其他帮助命令
+git commit --help
+// 跳过校验直接提交,包括任何 githooks
+git commit --no-verify -m &quot;xxx&quot;
+//新修改的内容,添加到上次提交中,减少提交的日志
+git commit --amend --no-edit
+//最常用的
+git commit -m&quot;xxx&quot;
+//彻底丢弃某个文件的改动
+git checkout -- file
+//放弃本地所有改动
+git checkout .
+//切换上一个分支
+git checkout -
+</code></pre>
+<p><strong>git reset</strong></p>
+<pre><code>//查看其他帮助命令
+git reset --help
+//直接回滚，抛弃回滚之前commit的改动：就是改变HEAD的指向，修改的内容抛弃
+//c01a2c6 为git log 的哈希值
+git  reset --hard c01a2c6
+//软性回滚，保留回滚之前的commit变动: 就是改变HEAD的指向，修改的内容依然在
+git reset --soft c01a2c6
+# 软回滚一个版本,可以理解为撤销最近一次的 commit
+git reset --soft HEAD~1
+# 清除暂存区但保留工作区变动
+git reset --mixed c01a2c6
+# 保留工作区和暂存区之间的差异。
+git reset --merge c01a2c6
+# 保留工作区和HEAD之间的差异
+git reset --keep c01a2c6
+</code></pre>
+<p><strong>git revert</strong></p>
+<h3 id="一般用于master-的代码回滚因为多人在上面协作">一般用于master 的代码回滚，因为多人在上面协作，</h3>
+<h5 id="revert-可以平稳的回滚代码但却保留提交记录不会让协作的人各种冲突">revert 可以平稳的回滚代码,但却保留提交记录,不会让协作的人各种冲突！</h5>
+<pre><code>//查看其他帮助命令
+git revert --help
+//回滚到某个 commit
+git revert commit-sha1
+</code></pre>
+<p><strong>git rebase</strong></p>
+<pre><code>//查看其他帮助命令
+git rebase --help
+1.本地与远端同一分支提交历史不一致,解决分叉问题
+git rebase  
+2.以master为基础，将feature分支上的修改增加到master分支上，并生成新的版本
+git rebase master
+</code></pre>
+<p><strong>git merge</strong></p>
+<pre><code>// --ff 是指fast-forward命令,当使用ff模式进行合并时，将不会创造一个新的commit节点。
+// --no-ff,保留合并分支的提交记录,一般主干用的比较多.
+//--ff-only 除非当前HEAD节点为最新节点或者能够用ff模式进行合并，否则拒绝合并并返回一个失败状态。
+// --squash 则类似 rebase squash,可以把合并多个 commit 变成一个
+git merge --no-ff  develop
+//也可以忽略
+git merge develop
+</code></pre>
+<p><strong>git push</strong></p>
+<pre><code>//直接新建一个同名的远程分支
+git push origin  master
+// 推送所有标签
+git push --tags
+//推送 commit 关联的 tags
+git push --follow-tags
+//强制推送本地仓库到远程（比如我们变基后远程和binding不一致，这时我们可以通过强制推送同步代码）
+git push -f origin master 
+
+ //--force-with-lease: 若是远程有人提交，此次强推失败，反之成功
+git push --force-with-lease
+//删除远程仓库
+git push -d origin develp
+</code></pre>
+<p><strong>git remote</strong></p>
+<pre><code>// 常规关联本地 git init 到远程仓库的姿势
+git remote add origin url
+// 新增其他上游仓
+git remote add github url
+//删除
+git remote remove github url
+//修改推送源
+git remote set-url  origin(或者其他上游域) url
+</code></pre>
+<p><strong>git reflog</strong></p>
+<h4 id="这个命令的强大之处是记录了所有行为包括你-rebasemerge-reset-这些当我们不小心硬回滚的时侯或变基错了都可以在这里找到行为之前的commit然后回滚-当然这个时间回溯也只在本地有用你推送到远程分支的破坏性改动该凉还是得凉">这个命令的强大之处，是记录了所有行为，包括你 rebase,merge, reset 这些当我们不小心硬回滚的时侯,或变基错了都可以在这里找到行为之前的commit，然后回滚。当然这个时间回溯也只在本地有用，你推送到远程分支的破坏性改动,该凉还是得凉。</h4>
+<pre><code># 最近n次行为,不带-n 则默认所有
+git reflog -n
+</code></pre>
+<p><strong>git rev-parse</strong></p>
+<h3 id="写脚本必备命令">写脚本必备命令</h3>
+<pre><code>// 获取最新有效的commit
+// --short：显示七位的 sha1,不带就是全部
+//--verify: 校验是否有效commit
+// HEAD: 当前分支的head 指向
+git rev-parse --short HEAD --verify
+// 显示仓库的绝对路径
+git rev-parse --show-toplevel 
+// 显示版本库.git 目录所在的位置
+git rev-parse --git-dir
+// 显示所有关联引用的 git sha1
+git rev-parse --all
+</code></pre>
+<p><strong>git rm</strong></p>
+<h4 id="重新索引gitignore-的范围">重新索引.gitignore 的范围</h4>
+<pre><code>//删除某个文件的索引,不会删除硬盘中的文件
+git rm --cache -- file
+
+//递归清除全部缓存,重新让.gitignore 新范围生效
+git rm -r --cached .  
+git add .
+git commit -m &quot;xxx&quot;
+
+</code></pre>
+<p><strong>git cherry-pick</strong></p>
+<h3 id="从多个分支同时挑取部分需要的-commit-合并到同一个地方去">从多个分支同时挑取部分需要的 commit 合并到同一个地方去</h3>
+<pre><code> //在当前分支挑其他分支的 commit，把那部分的变动那过来
+git cherry-pick commit-sha1
+//支持一次性拿多个
+git cherry-pick master~4 master~2
+// 支持区间, 区间中间是 .. 
+git cherry-pick startGitSha1..endGitSha1
+</code></pre>
+<p><strong>git init</strong></p>
+<pre><code>//初始化的版本库,用于记录版本库历史记录的.git目录下面的文件;而不会包含实际项目源文件的拷贝
+//不允许用户在上面进行各种git操作,多用于远程
+git init --bare
+//初始化仓库，包含全部，能执行各种git仓库，多用于本地
+git init 
+
+</code></pre>
+<p><strong>git pull</strong></p>
+<pre><code>//更新代码:会将本地的代码更新至远程仓库里面最新的代码版本
+// 相当于git fetch+git merge
+git pull
+//指定分支
+git pull origin master
+//解决分叉问题
+git pull rebase
+</code></pre>
+<p><strong>git fetch</strong></p>
+<pre><code>//更新代码 与git pull的区别: 更改远端跟踪分支只能用git fetch
+//相当于fetch的时候本地的master没有变化，但是与远程仓关联的那个版本号被更新了
+git fetch  
+</code></pre>
+<p><strong>git tag</strong></p>
+<pre><code>//列出已有的tag
+git tag
+//新建tag
+git tag 0.1
+//创建时添加备注
+git tag -a tagName -m &quot;my tag&quot;
+// 查看tag信息
+git show tagName
+
+//切换tag
+git checkout 0.1
+//删除tag
+git tag -d 0.1
+//推送tag到远程
+单个
+git push origin 0.1
+//所有的
+git push oriign --tags
+//推送 commit 关联的 tags
+git push --follow-tags
+//远程删除
+git push origin :refs/tags/0.1
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[修改版控制台超市系统（原版有错误特此修改一版）]]></title>
         <id>https://jackwuhao.github.io/post/xiu-gai-ban-kong-zhi-tai-chao-shi-xi-tong-yuan-ban-you-cuo-wu-te-ci-xiu-gai-yi-ban</id>
@@ -1027,147 +1279,6 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display = ['object_repr','object_id','action_flag','user','change_message']
 </code></pre>
 <p>重新运行一遍就有了</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[django完整的项目开发配置]]></title>
-        <id>https://jackwuhao.github.io/post/django-wan-zheng-de-xiang-mu-kai-fa-pei-zhi</id>
-        <link href="https://jackwuhao.github.io/post/django-wan-zheng-de-xiang-mu-kai-fa-pei-zhi">
-        </link>
-        <updated>2019-11-23T03:23:30.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="开始本篇教程之前你需要了解的内容">开始本篇教程之前你需要了解的内容</h1>
-<p>1  <strong>基础知识: python的基础知识,django基础命令,git基础 mysql</strong><br>
-2  <strong>开发工具:pycahrm  ,python3.6 ,django2.2以上 ,mysql（非必须,navicate(非必须)</strong></p>
-<h1 id="创建项目和app">创建项目和APP</h1>
-<p>1 <strong>打开pycharm 创建一个django项目</strong></p>
-<pre><code>//在终端创建一个名为student的app
- python manager.py  startapp student
-</code></pre>
-<p><strong>此时的项目目录为</strong><br>
-<img src="https://jackwuhao.github.io/post-images/1574480195551.png" alt=""></p>
-<h1 id="修改项目配置">修改项目配置</h1>
-<p><strong>settings.py介绍:这是我们django项目的配置文件，基本上我们项目的所有配置都需要在这个文件下完成</strong>
-1 <strong>修改时区的设置:默认时间设置不是中国时间，这样你在网数据库存时间的时候会发现，数据全是英文时间也对不上</strong></p>
-<pre><code># 把settings上面的默认字段修改为
-LANGUAGE_CODE = 'zh-hans'   #语言中文
-TIME_ZONE = 'Asia/Shanghai'   # 上海时间 （别问我为啥是上海,不是北京问就是没有）
-USE_TZ = False    #把本地时间禁止,不要考虑本地时间的存在
-</code></pre>
-<p>2 <strong>数据库的设置</strong>
-1 如果你的项目是小项目那完全没必要修改了sqlite完全够用了
-2 企业或者有性能要求的：
-<strong>修改数据库的默认配置</strong></p>
-<pre><code>//打开终端下载pymysql (当然他的也行这里以pymysql 举例了)
-pip install pymysql
-</code></pre>
-<p><strong>修改之前有两个坑（在你python manager   和  python  manager   migrate 会出现）</strong>
-第一个问题: raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.<strong>version</strong>) 　　　django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
-<strong>结局方案</strong>
-1.python安装目录打开base.py，注释掉以下内容： 　　　　　　　
-if version &lt; (1, 3, 13):
-　raise ImproperlyConfigured('mysqlclient 1.3.13 or newer is required; you have %s.' % Database.<strong>version</strong>)</p>
-<p>2.query = query.decode(errors='replace') 　
-把报错decode修改为encode
-<strong>提前创建好数据库</strong>
-建议安装mysql的时候顺便安装一下navicate ,可视化操作方便多了你要是喜欢敲命令当我没说
-如何安装mysql我这里就不讲了，自行goole或者百度
-<strong>引入pymysql</strong>
-在settings.py中添加以下代码</p>
-<pre><code>#要引入pymysql必须引入加入这两句代码
-import pymysql
-pymysql.install_as_MySQLdb()
-#修改配置文件 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
-        'NAME': '你创建的数据库的名称',  # 数据库名，先前创建的
-        'USER': '你mysql的用户名',  # 用户名，可以自己创建用户
-        'PASSWORD': '你mysql的密码',  # 密码
-        'HOST': 'localhost',  # mysql服务所在的主机ip这里默认为本地127.0.0.1
-        'PORT': '3306',  # mysql服务端口
-				#测试的数据库，如果不写测试用例的话可以去掉
-        'TEST': {
-				#这里的数据库不用提前创建。测试的时候会自动创建和销毁的
-            'NAME':'随便起一个名字'
-        }
-    }
-}
-</code></pre>
-<p><strong>引入APP</strong></p>
-<pre><code>INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-		#这里直接引入你创建的名字，有两种写法都行
-		#直接引入你创建的app的名字
-		# 'student'  
-		#引入你你创建的app目录下的apps.py的自动创建的app类名 （这种写法更灵活，可以给app起别名等）
-    'student.apps.StudentConfig',
-]
-</code></pre>
-<p><strong>资源文件这里简单的配置下以作参考你完全可以自定路径，部署的时候再考虑这个问题更好</strong></p>
-<pre><code>STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-</code></pre>
-<p><strong>如何区分生产环境和测试环境</strong>
-以上这样基本的框架配置完成后,你可以试着运行没有一点问题，实际上我们在开发过程中，经常会碰到这样的问题，开发环境和测试环境有很多配置是不一样，我们当然也可以继续在settings.py自己修改，但是你会想，有没有更好的解决方案能不能搞两套设置文件，一套测试环境使用，一套生产环境使用
-自己观察下manager.py这个文件会发现这句代码</p>
-<pre><code>#导入django的配置文件
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings')
-</code></pre>
-<p>我们把settings.py删除 记着保存一份新建一个python package，命名为settings
-新建3个python文件如下图<br>
-<img src="https://jackwuhao.github.io/post-images/1574491111080.png" alt=""></p>
-<p>把原先settings.py里面的配置全部复制到base.py
-在develop.py  和 product.py 分入加入这句代码</p>
-<pre><code>#引入base.py的所有配置
-from .base import * 
-</code></pre>
-<p>如果你想修改某个配置的直接重写就行了
-如product.py</p>
-<pre><code>#关闭测试环境
-DEBUG = False
-ALLOWED_HOSTS = ['*']
-</code></pre>
-<p><strong>修改manage.py 和wsgi.py的配置设置</strong><br>
-把这句代码</p>
-<pre><code>os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings')
-</code></pre>
-<p>替换为</p>
-<pre><code>#正式环境（生产环境）
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.product') 
-# 测试环境
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studentManager.settings.develop')
-</code></pre>
-<p>这样就把我们的测试环境和生产环境的配置完全区分开了</p>
-<p><strong>最后上传github</strong><br>
-1.修改下配置，在settiings包下，新建base_example.py 把里面你的key 和mysql，等其他重要的配置替换 (如何在develop.py 和product.py有重要配置记着同样替换掉)
-2. 创建requirements.txt文件</p>
-<pre><code>#在项目目录下生成项目的依赖文件
-pip freeze &gt; ./requirements.txt
-</code></pre>
-<p>别人使用时</p>
-<pre><code>#安装依赖
-pip install -r requirements.txt
-</code></pre>
-<p>3 创建.gitignore文件</p>
-<pre><code>mkdir  .gitignore
-</code></pre>
-<p>在.gitignore文件里写入下面的忽略内容(在develop.py 和product.py有重要配置记着同样忽略掉)：</p>
-<pre><code>.gitignore
-venv
-.idea
-db.sqlite3
-studentManager/__pycache__/
-settings/base.py
-</code></pre>
 ]]></content>
     </entry>
 </feed>

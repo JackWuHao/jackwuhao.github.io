@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>git 原理介绍及相关高频命令 | 吴浩的个人博客</title>	
+</style>
+<link rel="stylesheet" href="https://jackwuhao.github.io/styles/main.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/script.js'></script>
+
+<style type="text/css">
+header {
+    text-align: center;
+    padding: 120px 0px 40px 0px;
+    background: #515865 center no-repeat;
+    font-size: 16px;
+    color: #fff;
+    background-size: cover;
+    background-image:url();
+}
+		</style>
+
+ 	
+</head>
+<body class="post-template-default single single-post postid-70 single-format-standard">
+    <div id="wrapper">
+        
+			
+		<header id="header ddq" class="site-header" 
+		
+		>
+			<div class="site-branding">
+									<h1 class="site-title"><a href="https://jackwuhao.github.io" rel="home">吴浩的个人博客</a></h1>
+										
+					<h2 class="site-description">每一天都是学习的一天</h2>
+										
+							</div>
+			<nav id="nav-wrapper">
+				<div class="container">
+					<div class="nav-toggle">
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+					</div><!-- /nav-toggle -->
+					<div class="clear"></div>
+					<ul id="" class="vtmenu">
+		 
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/"> 首页</a></li>
+	
+    
+     			
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12">
+	 
+	<a  href="/archives"> 文章</a></li>
+	
+    
+
+</ul>
+</li>		
+		
+</ul>				</div>
+			</nav><!-- #navigation -->
+						<div class="jingge">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        </header><!-- #masthead -->
+
+		<div id="content" class="container">
+			<div class="row">
+	<div class="col-md-8 site-main">
+				
+<article id="post-70" class="post-70 post type-post status-publish format-standard hentry category-5 tag-10 tag-9 tag-11">
+
+	
+	                      
+		<div class="entry-content">
+			<h1 class="entry-title">git 原理介绍及相关高频命令</h1>
+<div class="entry-meta">
+	
+	           <a href="https://jackwuhao.github.io/post/git-yuan-li-jie-shao-ji-xiang-guan-gao-pin-ming-ling">
+							 <i class="iconfont icon-rili"> 
+							</i> 2019-12-12</a> 
+			
+</span>
+													 
+		</div>
+                  
+			<div class="entry-summary">
+				<p><p><a href="https://juejin.im/post/5dedc513f265da33e82bb294">原理介绍</a>
+<strong>平常开发sourceTree 够用了，下面命令了解下也是好的，当然你要是喜欢敲命令，比如我，那就得留意一下了</strong>
+**git log **</p>
+<pre><code>//最关键的
+git log --help （如果不懂有什么命令可以通过它查询）
+//完整输出
+git  log      
+//限定一行
+git log --oneline
+# 查看最近几个commit记录带上 - + 数字
+git log --oneline -1
+</code></pre>
+<p><strong>git  status</strong></p>
+<pre><code>git status --help （如果不懂有什么命令可以通过它查询）
+//查看工作区及索引区的变动
+git status
+//概要信息
+git status -s
+# 查询工作区中是否有stash存在（暂存的东西）,有则提醒该工作区有几个 stash
+git status  --show-stash
+#查询当前分支状态
+git status -b
+
+</code></pre>
+<p><strong>git branch</strong></p>
+<pre><code>//帮助查找其他命令
+git branch --help
+//创建分支
+git branch Dev
+//列出所有分支
+git branch -a
+//删除分支
+git branch -d  Dev
+//重命名
+git branch -M oldDev  new Dev
+//指定它的当前分支的上游分支,两个写法一致的
+git branch --set-upstream-to origin Dev 
+//取消关联
+git branch --unset-upstream-to origin Dev
+</code></pre>
+<p><strong>git checkout</strong></p>
+<pre><code>//查看其他命令
+git checkout  --help
+//切换本地分支
+git checkout Dev
+//切换远程分支
+git checkout origin/Dev
+// 基于远程分支创建本地分支(前提有远程分支)
+git checkout --track origin/develop
+// 创建并切换到新分支
+git checkout -b Dev
+//彻底丢弃某个文件的改动
+git checkout -- file
+//放弃本地所有改动
+git checkout 
+//切换上一个分支
+git checkout -
+</code></pre>
+<p><strong>git stash</strong></p>
+<pre><code>//查看其他命令
+git stash --help
+//保存
+git stash push -m &quot;更改了 xx&quot; 
+//查看所有缓存记录
+git stash list
+//取缓存，保留记录
+git stash  apply stash@{0}
+//取缓存，删除记录
+git stash pop  stash@{0}
+//清空所有缓存(使用前，请慎重)
+git stash clear 
+//清除指定缓存
+git stash drop stash@{0}
+//查看缓存变动
+git stash show stash@{0}
+</code></pre>
+<p><strong>git commit</strong></p>
+<pre><code>//查看其他帮助命令
+git commit --help
+// 跳过校验直接提交,包括任何 githooks
+git commit --no-verify -m &quot;xxx&quot;
+//新修改的内容,添加到上次提交中,减少提交的日志
+git commit --amend --no-edit
+//最常用的
+git commit -m&quot;xxx&quot;
+//彻底丢弃某个文件的改动
+git checkout -- file
+//放弃本地所有改动
+git checkout .
+//切换上一个分支
+git checkout -
+</code></pre>
+<p><strong>git reset</strong></p>
+<pre><code>//查看其他帮助命令
+git reset --help
+//直接回滚，抛弃回滚之前commit的改动：就是改变HEAD的指向，修改的内容抛弃
+//c01a2c6 为git log 的哈希值
+git  reset --hard c01a2c6
+//软性回滚，保留回滚之前的commit变动: 就是改变HEAD的指向，修改的内容依然在
+git reset --soft c01a2c6
+# 软回滚一个版本,可以理解为撤销最近一次的 commit
+git reset --soft HEAD~1
+# 清除暂存区但保留工作区变动
+git reset --mixed c01a2c6
+# 保留工作区和暂存区之间的差异。
+git reset --merge c01a2c6
+# 保留工作区和HEAD之间的差异
+git reset --keep c01a2c6
+</code></pre>
+<p><strong>git revert</strong></p>
+<h3 id="一般用于master-的代码回滚因为多人在上面协作">一般用于master 的代码回滚，因为多人在上面协作，</h3>
+<h5 id="revert-可以平稳的回滚代码但却保留提交记录不会让协作的人各种冲突">revert 可以平稳的回滚代码,但却保留提交记录,不会让协作的人各种冲突！</h5>
+<pre><code>//查看其他帮助命令
+git revert --help
+//回滚到某个 commit
+git revert commit-sha1
+</code></pre>
+<p><strong>git rebase</strong></p>
+<pre><code>//查看其他帮助命令
+git rebase --help
+1.本地与远端同一分支提交历史不一致,解决分叉问题
+git rebase  
+2.以master为基础，将feature分支上的修改增加到master分支上，并生成新的版本
+git rebase master
+</code></pre>
+<p><strong>git merge</strong></p>
+<pre><code>// --ff 是指fast-forward命令,当使用ff模式进行合并时，将不会创造一个新的commit节点。
+// --no-ff,保留合并分支的提交记录,一般主干用的比较多.
+//--ff-only 除非当前HEAD节点为最新节点或者能够用ff模式进行合并，否则拒绝合并并返回一个失败状态。
+// --squash 则类似 rebase squash,可以把合并多个 commit 变成一个
+git merge --no-ff  develop
+//也可以忽略
+git merge develop
+</code></pre>
+<p><strong>git push</strong></p>
+<pre><code>//直接新建一个同名的远程分支
+git push origin  master
+// 推送所有标签
+git push --tags
+//推送 commit 关联的 tags
+git push --follow-tags
+//强制推送本地仓库到远程（比如我们变基后远程和binding不一致，这时我们可以通过强制推送同步代码）
+git push -f origin master 
+
+ //--force-with-lease: 若是远程有人提交，此次强推失败，反之成功
+git push --force-with-lease
+//删除远程仓库
+git push -d origin develp
+</code></pre>
+<p><strong>git remote</strong></p>
+<pre><code>// 常规关联本地 git init 到远程仓库的姿势
+git remote add origin url
+// 新增其他上游仓
+git remote add github url
+//删除
+git remote remove github url
+//修改推送源
+git remote set-url  origin(或者其他上游域) url
+</code></pre>
+<p><strong>git reflog</strong></p>
+<h4 id="这个命令的强大之处是记录了所有行为包括你-rebasemerge-reset-这些当我们不小心硬回滚的时侯或变基错了都可以在这里找到行为之前的commit然后回滚-当然这个时间回溯也只在本地有用你推送到远程分支的破坏性改动该凉还是得凉">这个命令的强大之处，是记录了所有行为，包括你 rebase,merge, reset 这些当我们不小心硬回滚的时侯,或变基错了都可以在这里找到行为之前的commit，然后回滚。当然这个时间回溯也只在本地有用，你推送到远程分支的破坏性改动,该凉还是得凉。</h4>
+<pre><code># 最近n次行为,不带-n 则默认所有
+git reflog -n
+</code></pre>
+<p><strong>git rev-parse</strong></p>
+<h3 id="写脚本必备命令">写脚本必备命令</h3>
+<pre><code>// 获取最新有效的commit
+// --short：显示七位的 sha1,不带就是全部
+//--verify: 校验是否有效commit
+// HEAD: 当前分支的head 指向
+git rev-parse --short HEAD --verify
+// 显示仓库的绝对路径
+git rev-parse --show-toplevel 
+// 显示版本库.git 目录所在的位置
+git rev-parse --git-dir
+// 显示所有关联引用的 git sha1
+git rev-parse --all
+</code></pre>
+<p><strong>git rm</strong></p>
+<h4 id="重新索引gitignore-的范围">重新索引.gitignore 的范围</h4>
+<pre><code>//删除某个文件的索引,不会删除硬盘中的文件
+git rm --cache -- file
+
+//递归清除全部缓存,重新让.gitignore 新范围生效
+git rm -r --cached .  
+git add .
+git commit -m &quot;xxx&quot;
+
+</code></pre>
+<p><strong>git cherry-pick</strong></p>
+<h3 id="从多个分支同时挑取部分需要的-commit-合并到同一个地方去">从多个分支同时挑取部分需要的 commit 合并到同一个地方去</h3>
+<pre><code> //在当前分支挑其他分支的 commit，把那部分的变动那过来
+git cherry-pick commit-sha1
+//支持一次性拿多个
+git cherry-pick master~4 master~2
+// 支持区间, 区间中间是 .. 
+git cherry-pick startGitSha1..endGitSha1
+</code></pre>
+<p><strong>git init</strong></p>
+<pre><code>//初始化的版本库,用于记录版本库历史记录的.git目录下面的文件;而不会包含实际项目源文件的拷贝
+//不允许用户在上面进行各种git操作,多用于远程
+git init --bare
+//初始化仓库，包含全部，能执行各种git仓库，多用于本地
+git init 
+
+</code></pre>
+<p><strong>git pull</strong></p>
+<pre><code>//更新代码:会将本地的代码更新至远程仓库里面最新的代码版本
+// 相当于git fetch+git merge
+git pull
+//指定分支
+git pull origin master
+//解决分叉问题
+git pull rebase
+</code></pre>
+<p><strong>git fetch</strong></p>
+<pre><code>//更新代码 与git pull的区别: 更改远端跟踪分支只能用git fetch
+//相当于fetch的时候本地的master没有变化，但是与远程仓关联的那个版本号被更新了
+git fetch  
+</code></pre>
+<p><strong>git tag</strong></p>
+<pre><code>//列出已有的tag
+git tag
+//新建tag
+git tag 0.1
+//创建时添加备注
+git tag -a tagName -m &quot;my tag&quot;
+// 查看tag信息
+git show tagName
+
+//切换tag
+git checkout 0.1
+//删除tag
+git tag -d 0.1
+//推送tag到远程
+单个
+git push origin 0.1
+//所有的
+git push oriign --tags
+//推送 commit 关联的 tags
+git push --follow-tags
+//远程删除
+git push origin :refs/tags/0.1
+</code></pre>
+</p>
+							</div>
+	<div class="vt-post-tags">
+ 
+				<a href="https://jackwuhao.github.io/tag/hxfY5PL9j" rel="tag">其他</a>	
+				 
+					</div>						
+<nav class="navigation3 post-navigation3" role="navigation">
+		
+		<div class="nav-links3">
+      
+		 
+		<div class="nav-next3"><a href="https://jackwuhao.github.io/post/xiu-gai-ban-kong-zhi-tai-chao-shi-xi-tong-yuan-ban-you-cuo-wu-te-ci-xiu-gai-yi-ban" rel="next"> 修改版控制台超市系统（原版有错误特此修改一版）</a></div>
+		
+		</div>
+	</nav>
+		</div>
+		
+ 
+		
+</article>
+
+<div id="marlin_lite_about_widget-2" class="widget marlin_lite_about_widget">
+			<h4 class="widget-title">评论</h4>	
+
+			 
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '02768feaba4f9aa8d652',
+    clientSecret: '49bad4bf31d6d879729d892c30474cb4f4a8bee0',
+    repo: 'jackwuhao.github.io',
+    owner: 'JackWuHao',
+    admin: ['JackWuHao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+   
+  
+ 
+
+		</div>
+
+			</div>
+			
+
+
+<div class="col l3 hide-on-med-and-down">
+	
+        <div class="toc-widget">
+			
+            <div class="toc-title"></div>
+			
+            <div id="toc-content">
+			
+			
+			</div>
+        </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '.entry-summary',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('.entry-summary').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>										 
+
+ 
+       
+
+
+			</div>
+		</div>
+
+		
+		 	<footer id="colophon" class="site-footer">
+
+			<div class="container">
+	
+				<div class="copyright">PowerByGitHub<br>Theme:   <a href="https://github.com/alterfang/gridea-theme-pan" target="_blank" title="Pan"><span>Pan</span></a>. Powered by <a href="https://gridea.dev/" target="_blank" title="Gridea"><span>Gridea</span></a></div>		
+			</div><!-- .container -->
+		
+		</footer><!-- #colophon -->
+
+</div>
+
+<script src="https://cdn.bootcss.com/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+<script type='text/javascript' src='https://jackwuhao.github.io/media/scripts/marlin-scripts.js'></script>
+
+		<script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $('.navigation:eq(0)').remove();
+                $("").attr("rel" , "external");
+                $("a[rel='external'],a[rel='external nofollow']").attr("target","_blank");
+                $("a.vi").attr("rel" , "");
+                $.viewImage({
+                    'target'  : 'img',
+                    'exclude' : '.vsmile-icons img,.gallery img',
+                    'delay'   : 300
+                });
+                $.lately({
+                    'target' : '.commentmetadata a,.infos time,.post-list time'
+                });
+                prettyPrint();
+                
+                $('ul.links li a').each(function(){
+                    if($(this).parent().find('.bg').length==0){
+                        $(this).parent().append('<!---<div class="bg" style="background-image:url(https://c3.glgoo.top/s2/favicons?domain='+$(this).attr("href")+')"></div>--->')
+                    }
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+
+</body>
+</html>
