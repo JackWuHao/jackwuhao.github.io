@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-30T03:40:59.261Z</updated>
+    <updated>2019-12-30T03:41:57.816Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -43,7 +43,7 @@ pprint.pprint(sys.path)
 </code></pre>
 <h5 id="根据路径找到site-packages-把你写好的模块全部放到当前目录下即可">根据路径找到site-packages  把你写好的模块全部放到当前目录下即可</h5>
 <h1 id="延伸">延伸</h1>
-<h4 id="动态修改模块加载路劲">动态修改模块加载路劲</h4>
+<h4 id="动态修改模块加载路径">动态修改模块加载路径</h4>
 <pre><code>#注意这里需要目录
 sys.path.append('/Users/apple/Documents/python/')
 import model_test2
