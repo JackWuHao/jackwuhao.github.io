@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jackwuhao.github.io</id>
     <title>吴浩的个人博客</title>
-    <updated>2019-12-30T02:57:43.297Z</updated>
+    <updated>2019-12-30T03:40:59.261Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jackwuhao.github.io"/>
     <link rel="self" href="https://jackwuhao.github.io/atom.xml"/>
@@ -42,6 +42,17 @@ pprint.pprint(sys.path)
 <pre><code>/Users/apple/PycharmProjects/test/venv/lib/python3.7/site-packages
 </code></pre>
 <h5 id="根据路径找到site-packages-把你写好的模块全部放到当前目录下即可">根据路径找到site-packages  把你写好的模块全部放到当前目录下即可</h5>
+<h1 id="延伸">延伸</h1>
+<h4 id="动态修改模块加载路劲">动态修改模块加载路劲</h4>
+<pre><code>#注意这里需要目录
+sys.path.append('/Users/apple/Documents/python/')
+import model_test2
+print(model_test2.my_book)
+</code></pre>
+<p>python 目录下的model_test2.py</p>
+<pre><code>#/Users/apple/Documents/python/ model_test2.py
+my_book = 'xiaocao'
+</code></pre>
 ]]></content>
     </entry>
     <entry>
